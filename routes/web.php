@@ -38,6 +38,8 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/candidate/forgot-password', [ForgotPasswordController::class, 'index'])
     ->name('candidate.forgot.password');
+
+    Route::post('/candidate/forgot-password', [ForgotPasswordController::class, 'store']);
 });
 
 Route::middleware('auth', 'verified')->group(function () {

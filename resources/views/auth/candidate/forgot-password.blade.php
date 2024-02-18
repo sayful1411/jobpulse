@@ -9,15 +9,15 @@
 
             <!-- Login Form -->
             <div class="login-form default-form">
-                @if (session('success'))
+                @if (session('status'))
                     <div class="alert alert-success">
-                        {{ session('success') }}
+                        {{ session('status') }}
                     </div>
                 @endif
                 <div class="form-inner">
                     <h3>Forgot Password</h3>
                     <!--Login Form-->
-                    <form method="post" action="{{ route('candidate.login') }}">
+                    <form method="post" action="{{ route('candidate.forgot.password') }}">
                         @csrf
 
                         <div class="form-group">
