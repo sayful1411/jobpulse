@@ -26,8 +26,8 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:100', Rule::unique(User::class)->ignore($this->user()->id)],
-            'phone' => ['required', 'regex:/^([0-9\s\+\(\)]*)$/', 'min:10'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:100', 'unique:users,email'],
+            'phone' => ['required', 'regex:/^([0-9\s\(\)\+\-\(\)]*)$/', 'min:10', 'unique:users,phone'],
             'password' => ['required', 'confirmed', Password::defaults() ]
         ];
     }

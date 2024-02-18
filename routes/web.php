@@ -29,6 +29,8 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/candidate/register', [CandidateRegisterController::class, 'index'])
     ->name('candidate.register');
+
+    Route::post('/candidate/register', [CandidateRegisterController::class, 'store']);
 });
 
 Route::get('/candidate/dashboard', function () {

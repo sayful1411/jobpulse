@@ -1,13 +1,19 @@
 @extends('layouts.guest')
 
-@section('title', "Candidate Login | " . config('app.name'))
+@section('title', 'Candidate Login | ' . config('app.name'))
 
 @section('content')
     <div class="login-section">
         <div class="image-layer" style="background-image: url({{ asset('images') }}/background/12.jpg);"></div>
         <div class="outer-box">
+
             <!-- Login Form -->
             <div class="login-form default-form">
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div class="form-inner">
                     <h3>Login to {{ config('app.name') }}</h3>
                     <!--Login Form-->
