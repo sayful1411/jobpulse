@@ -12,7 +12,7 @@
                 <div class="form-inner">
                     <h3>Reset Password</h3>
                     <!--Login Form-->
-                    <form method="post" action="">
+                    <form method="post" action="{{ route('password.store') }}">
                         @csrf
 
                         <input type="hidden" name="token" value="{{ $request->route('token') }}">
