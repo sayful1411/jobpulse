@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\Candidate\CandidateLoginController;
 use App\Http\Controllers\Auth\Candidate\CandidateRegisterController;
+use App\Http\Controllers\Auth\Candidate\ForgotPasswordController;
 use App\Http\Controllers\Auth\Candidate\LogoutController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,9 @@ Route::middleware('guest')->group(function () {
     ->name('candidate.register');
 
     Route::post('/candidate/register', [CandidateRegisterController::class, 'store']);
+
+    Route::get('/candidate/forgot-password', [ForgotPasswordController::class, 'index'])
+    ->name('candidate.forgot.password');
 });
 
 Route::middleware('auth', 'verified')->group(function () {
