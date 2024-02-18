@@ -27,7 +27,13 @@
     <div class="preloader"></div>
 
     <!-- Main Header-->
-    @include('partials.header')
+    @guest
+      @include('partials.header')
+    @endguest
+
+    @auth
+      @include('partials.dashboard-header')
+    @endauth
     <!--End Main Header -->
 
     <!-- Main Section -->
