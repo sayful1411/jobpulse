@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\Candidate\CandidateLoginController;
 use App\Http\Controllers\Auth\Candidate\CandidateRegisterController;
 use App\Http\Controllers\Auth\Candidate\ForgotPasswordController;
 use App\Http\Controllers\Auth\Candidate\LogoutController;
+use App\Http\Controllers\Auth\Candidate\ResetPasswordController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,9 @@ Route::middleware('guest')->group(function () {
     ->name('candidate.forgot.password');
 
     Route::post('/candidate/forgot-password', [ForgotPasswordController::class, 'store']);
+
+    Route::get('reset-password/{token}', [ResetPasswordController::class, 'index'])
+    ->name('password.reset');
 });
 
 Route::middleware('auth', 'verified')->group(function () {
