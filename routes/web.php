@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\Candidate\CandidateLoginController;
+use App\Http\Controllers\Auth\Candidate\CandidateRegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('index');
+})->name('home');
+
+Route::get('/login-popup', function () {
+    return view('auth.candidate.login-signup-popup');
+})->name('login.popup');
+
+Route::get('/candidate/login', [CandidateLoginController::class, 'index'])->name('candidate.login');
+
+Route::get('/candidate/register', [CandidateRegisterController::class, 'index'])->name('candidate.register');
+
+Route::get('/candidate/dashboard', function () {
+    return view('candidate.dashboard');
+})->name('candidate.dashboard');
