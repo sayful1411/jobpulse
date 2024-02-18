@@ -29,4 +29,4 @@ Route::get('/candidate/register', [CandidateRegisterController::class, 'index'])
 
 Route::get('/candidate/dashboard', function () {
     return view('candidate.dashboard');
-})->name('candidate.dashboard');
+})->middleware('auth', 'verified')->name('candidate.dashboard');
