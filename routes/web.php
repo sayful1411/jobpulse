@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\Candidate\CandidateLoginController;
 use App\Http\Controllers\Auth\Candidate\CandidateRegisterController;
+use App\Http\Controllers\Auth\Candidate\LogoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +36,11 @@ Route::middleware('guest')->group(function () {
     Route::post('/candidate/register', [CandidateRegisterController::class, 'store']);
 });
 
-Route::get('/candidate/dashboard', function () {
-    return view('candidate.dashboard');
-})->middleware('auth', 'verified')->name('candidate.dashboard');
+Route::middleware('auth', 'verified')->group(function () {
+    Route::get('/candidate/dashboard', function () {
+        return view('candidate.dashboard');
+    })->name('candidate.dashboard');
+
+    Route::post('/candidate/logout', LogoutController::class)->name('candidate.logout');
+});
+
