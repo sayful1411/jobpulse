@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
+ */
 
 Route::get('/', function () {
     return view('index');
@@ -23,9 +23,13 @@ Route::get('/login-popup', function () {
     return view('auth.candidate.login-signup-popup');
 })->name('login.popup');
 
-Route::get('/candidate/login', [CandidateLoginController::class, 'index'])->name('candidate.login');
+Route::middleware('guest')->group(function () {
+    Route::get('/candidate/login', [CandidateLoginController::class, 'index'])
+    ->name('candidate.login');
 
-Route::get('/candidate/register', [CandidateRegisterController::class, 'index'])->name('candidate.register');
+    Route::get('/candidate/register', [CandidateRegisterController::class, 'index'])
+    ->name('candidate.register');
+});
 
 Route::get('/candidate/dashboard', function () {
     return view('candidate.dashboard');
