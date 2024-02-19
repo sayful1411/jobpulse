@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Auth\Candidate\CandidateLoginController;
-use App\Http\Controllers\Auth\Candidate\CandidateRegisterController;
-use App\Http\Controllers\Auth\Candidate\ForgotPasswordController;
-use App\Http\Controllers\Auth\Candidate\LogoutController;
-use App\Http\Controllers\Auth\Candidate\ResetPasswordController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\Candidate\LogoutController;
+use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\Auth\Candidate\ResetPasswordController;
+use App\Http\Controllers\Auth\Candidate\CandidateLoginController;
+use App\Http\Controllers\Auth\Candidate\ForgotPasswordController;
+use App\Http\Controllers\Auth\Candidate\CandidateRegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,10 +50,13 @@ Route::middleware('guest')->group(function () {
     ->name('password.store');
 });
 
-Route::middleware('auth', 'verified')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/candidate/dashboard', function () {
         return view('candidate.dashboard');
-    })->name('candidate.dashboard');
+    })->middleware('verified')->name('candidate.dashboard');
+
+    Route::get('/email/verify', [EmailVerificationController::class, 'index'])
+    ->name('verification.notice');
 
     Route::post('/candidate/logout', LogoutController::class)->name('candidate.logout');
 });
