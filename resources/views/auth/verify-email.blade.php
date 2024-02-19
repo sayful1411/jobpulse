@@ -9,15 +9,15 @@
 
             <!-- Login Form -->
             <div class="login-form default-form">
-                @if (session('status') == 'verification-link-sent')
-                    <div class="text-success">
+                @if (session('status'))
+                    <div class="alert alert-success">
                         {{ ('A new verification link has been sent to the email address you provided during registration.') }}
                     </div>
                 @endif
                 <div class="form-inner">
                     <h3>Email Verification</h3>
                     <!--Login Form-->
-                    <form method="post" action="">
+                    <form method="post" action="{{ route('verification.send') }}">
                         @csrf
 
                         <div class="form-group">
