@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Auth\Candidate;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\Candidate\RegisterRequest;
 use App\Models\User;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
+use App\Http\Requests\Auth\Candidate\RegisterRequest;
 
 class CandidateRegisterController extends Controller
 {
@@ -22,6 +24,8 @@ class CandidateRegisterController extends Controller
 
         event(new Registered($candidate));
 
-        return to_route('candidate.login')->with('success', 'Registration successful. Please verify email to continue');
+        Auth::login($candidate);
+
+        return redirect()->route('verification.notice');
     }
 }

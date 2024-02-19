@@ -58,6 +58,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/email/verify', [EmailVerificationController::class, 'index'])
     ->name('verification.notice');
 
+    Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verifyEmail'])->middleware(['signed', 'throttle:6,1'])->name('verification.verify');
+
     Route::post('/candidate/logout', LogoutController::class)->name('candidate.logout');
 });
 
