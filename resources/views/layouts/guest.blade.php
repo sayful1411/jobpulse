@@ -41,10 +41,26 @@
 
                     <div class="outer-box">
                         <!-- Login/Register -->
-                        <div class="btn-box">
-                            <a href="{{ route('login.popup') }}"
-                                class="theme-btn -outline-dark-blue -rounded call-modal">Login / Register</a>
-                        </div>
+                        @guest
+                            <div class="btn-box">
+                                <a href="{{ route('login.popup') }}"
+                                    class="theme-btn -outline-dark-blue -rounded call-modal">Login / Register</a>
+                            </div>
+                        @endguest
+
+                        @auth
+                            <div class="btn-box d-flex align-items-center">
+                                <a href="{{ route('candidate.dashboard') }}"
+                                    class="theme-btn -outline-dark-blue -rounded">Dashboard</a>
+                                <form method="POST" action="{{ route('candidate.logout') }}">
+                                    @csrf
+                                    <a href="{{ route('candidate.logout') }}"
+                                        onclick="event.preventDefault();
+                                        this.closest('form').submit();" class="theme-btn -outline-dark-blue -rounded">Logout
+                                    </a>
+                                </form>
+                            </div>
+                        @endauth
                     </div>
                 </div>
             </div>
