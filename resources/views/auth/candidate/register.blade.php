@@ -1,6 +1,6 @@
 @extends('layouts.guest')
 
-@section('title', "Candidate Register | " . config('app.name'))
+@section('title', 'Candidate Register | ' . config('app.name'))
 
 @section('content')
     <div class="login-section">
@@ -12,48 +12,65 @@
                     <h3>Create a Free {{ config('app.name') }} Account</h3>
 
                     <!--Register Form-->
-                    <form method="post" action="#">
+                    <form method="post" action="{{ route('candidate.register') }}">
+                        @csrf
 
                         <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" name="name" placeholder="Name">
+                            <label for="name">Name</label>
+                            <input class="@error('name') border border-danger @enderror" id="name" type="text" name="name"
+                                placeholder="Name" value="{{ old('name') }}">
+                            @error('name')
+                                <div class="mt-1 text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
-                            <label>Email Address</label>
-                            <input type="email" name="email" placeholder="Email">
+                            <label for="email">Email Address</label>
+                            <input class="@error('email') border border-danger @enderror" id="email" type="email" name="email" placeholder="Email" value="{{ old('email') }}">
+                            @error('email')
+                                <div class="mt-1 text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
-                            <label>Phone</label>
-                            <input type="text" name="phone" placeholder="Phone">
+                            <label for="phone">Phone</label>
+                            <input class="@error('phone') border border-danger @enderror" id="phone" type="text" name="phone" placeholder="Phone" value="{{ old('phone') }}">
+                            @error('phone')
+                                <div class="mt-1 text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
-                            <label>Password</label>
-                            <input id="password-field" type="password" name="password" value=""
+                            <label for="password">Password</label>
+                            <input class="@error('password') border border-danger @enderror" id="password" type="password" name="password"
                                 placeholder="Password">
+                            @error('password')
+                                <div class="mt-1 text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label>Password Confirmation</label>
-                            <input id="password-field" type="password" name="password-confirmation" value=""
+                            <input class="@error('password_confirmation') border border-danger @enderror" id="password_confirmation" type="password" name="password_confirmation"
                                 placeholder="Password">
+                            @error('password_confirmation')
+                                <div class="mt-1 text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
-                            <button class="theme-btn btn-style-one " type="submit"
-                                name="Register">Register</button>
+                            <button class="theme-btn btn-style-one " type="submit">Register</button>
                         </div>
                     </form>
 
                     <div class="bottom-box">
-                        <div class="text">Already have an account? <a href="{{ route('candidate.login') }}">Sign In</a></div>
+                        <div class="text">Already have an account? <a href="{{ route('candidate.login') }}">Sign In</a>
+                        </div>
                         <div class="divider"><span>or</span></div>
                         <div class="btn-box row">
                             <div class="col-lg-12 col-md-12">
-                                <a href="#" class="theme-btn social-btn-two google-btn"><i
-                                        class="fab fa-google"></i> Log In via Google</a>
+                                <a href="#" class="theme-btn social-btn-two google-btn"><i class="fab fa-google"></i>
+                                    Log In via Google</a>
                             </div>
                         </div>
                     </div>

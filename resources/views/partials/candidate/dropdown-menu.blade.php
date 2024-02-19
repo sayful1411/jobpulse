@@ -11,6 +11,15 @@
         <li><a href="candidate-dashboard-job-alerts.html"><i class="la la-bell"></i>Job Alerts</a></li>
         <li><a href="dashboard-packages.html"><i class="la la-box"></i>Plugin</a></li>
         <li><a href="dashboard-change-password.html"><i class="la la-lock"></i>Change Password</a></li>
-        <li><a href="index-2.html"><i class="la la-sign-out"></i>Logout</a></li>
+        
+        <li>
+            <form method="POST" action="{{ route('candidate.logout') }}">
+                @csrf
+                <a href="{{ route('candidate.logout') }}" onclick="event.preventDefault();
+                this.closest('form').submit();">
+                    <i class="la la-sign-out"></i>Logout
+                </a>
+            </form>
+        </li>
     </ul>
 </div>

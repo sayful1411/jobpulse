@@ -1,7 +1,9 @@
 <nav class="nav main-menu">
     <ul class="navigation" id="navbar">
         <li class="current">
-            <span>Home</span>
+            <a href="{{ route('home') }}">
+                <span>Home</span>
+            </a>
         </li>
 
         <li class="">
