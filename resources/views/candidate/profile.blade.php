@@ -38,67 +38,67 @@
                                         <!-- Input -->
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="name">Full Name</label>
-                                            <input type="text" id="name" name="name">
+                                            <input type="text" id="name" value="{{ $candidate->name }}" readonly>
                                         </div>
 
                                         <!-- Input -->
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="nid">NID</label>
-                                            <input type="text" id="nid" name="nid">
+                                            <input type="text" id="nid" name="nid" value="{{ old('nid', $candidate->nid) }}">
                                         </div>
 
                                         <!-- Input -->
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="phone">Phone</label>
-                                            <input type="text" id="phone" name="phone">
+                                            <input type="text" id="phone" name="phone" value="{{ old('phone', $candidate->phone) }}">
                                         </div>
 
                                         <!-- Input -->
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="email">Email address</label>
-                                            <input type="text" id="email" name="email">
+                                            <input type="text" id="email" value="{{ $candidate->email }}" readonly>
                                         </div>
 
                                         <!-- Input -->
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="website">Website</label>
-                                            <input type="text" id="website" name="website">
+                                            <input type="text" id="website" name="website" value="{{ old('website', $candidate->website) }}">
                                         </div>
 
                                         <!-- Input -->
                                         <div class="form-group col-lg-3 col-md-12">
                                             <label for="current_salary">Current Salary</label>
-                                            <input type="number" id="current_salary"  name="current_salary">
+                                            <input type="number" id="current_salary"  name="current_salary" value="{{ old('current_salary', $candidate->current_salary) }}">
                                         </div>
 
                                         <!-- Input -->
                                         <div class="form-group col-lg-3 col-md-12">
                                             <label for="expected_salary">Expected Salary</label>
-                                            <input type="number" id="expected_salary"  name="expected_salary">
+                                            <input type="number" id="expected_salary"  name="expected_salary" value="{{ old('expected_salary', $candidate->expected_salary) }}">
                                         </div>
 
                                         <!-- Input -->
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="father_name">Father's Name</label>
-                                            <input type="text" id="father_name" name="father_name">
+                                            <input type="text" id="father_name" name="father_name" value="{{ old('father_name', $candidate->father_name) }}">
                                         </div>
 
                                         <!-- Input -->
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="mother_name">Mother's Name</label>
-                                            <input type="text" id="mother_name" name="mother_name">
+                                            <input type="text" id="mother_name" name="mother_name" value="{{ old('mother_name', $candidate->mother_name) }}">
                                         </div>
 
                                         <!-- Input -->
                                         <div class="form-group col-lg-4 col-md-12">
                                             <label for="blood_group">Blood Group</label>
-                                            <input type="text" id="blood_group" name="blood_group">
+                                            <input type="text" id="blood_group" name="blood_group" value="{{ old('blood_group', $candidate->blood_group) }}">
                                         </div>
 
                                         <!-- Input -->
                                         <div class="form-group col-lg-4 col-md-12 date" data-provide="datepicker">
-                                            <label for="birth_date">Date of Birth</label>
-                                            <input type="text" id="birth_date" name="birth_date" class="form-control">
+                                            <label for="date_of_birth">Date of Birth</label>
+                                            <input type="text" id="date_of_birth" name="date_of_birth" class="form-control" value="{{ old('date_of_birth', $candidate->date_of_birth) }}">
                                             <div class="input-group-addon">
                                                 <span class="glyphicon glyphicon-th"></span>
                                             </div>
@@ -107,7 +107,7 @@
                                         <!-- Search Select -->
                                         <div class="form-group col-lg-4 col-md-12">
                                             <label for="gender">Gender</label>
-                                            <select class="chosen-select" id="gender" name="gender">
+                                            <select class="chosen-select" id="gender" name="gender" value="{{ old('gender', $candidate->gender) }}">
                                                 <option>Male</option>
                                                 <option>Female</option>
                                                 <option>Other</option>
@@ -117,13 +117,13 @@
                                         <!-- Input -->
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="phone_2">Alternate Phone</label>
-                                            <input type="text" id="phone_2" name="phone_2">
+                                            <input type="text" id="phone_2" name="phone_2" value="{{ old('phone_2', $candidate->phone_2) }}">
                                         </div>
 
                                         <!-- Input -->
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="address">Address</label>
-                                            <input type="text" id="address" name="address">
+                                            <input type="text" id="address" name="address" value="{{ old('address', $candidate->address) }}">
                                         </div>
 
                                         <!-- Input -->

@@ -21,4 +21,9 @@ class UserProfile extends Model
         'website',
         'address'
     ];
+
+    public function candidate()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
