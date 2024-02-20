@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('phone_2')->nullable();
             $table->string('website')->nullable();
             $table->text('address');
+            $table->text('bio')->nullable();
             $table->timestamps();
         });
     }

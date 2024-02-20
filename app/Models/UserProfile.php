@@ -19,7 +19,8 @@ class UserProfile extends Model
         'nid',
         'phone_2',
         'website',
-        'address'
+        'address',
+        'bio'
     ];
 
     public function candidate()
