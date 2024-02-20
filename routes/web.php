@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\Candidate\ResetPasswordController;
 use App\Http\Controllers\Auth\Candidate\CandidateLoginController;
 use App\Http\Controllers\Auth\Candidate\ForgotPasswordController;
 use App\Http\Controllers\Auth\Candidate\CandidateRegisterController;
+use App\Http\Controllers\Candidate\ProfileController;
 use App\Http\Controllers\Candidate\UpdatePasswordController;
 
 /*
@@ -60,7 +61,7 @@ Route::middleware('auth')->group(function () {
     | change password
     | email verification
     | logout
-    |
+    | profile
     */
     Route::middleware(['verified'])->group(function () {
         Route::get('/candidate/dashboard', function () {
@@ -72,6 +73,9 @@ Route::middleware('auth')->group(function () {
 
         Route::put('/update-password', [UpdatePasswordController::class, 'update'])
         ->name('password.update');
+
+        Route::get('/candidate/profile', [ProfileController::class, 'index'])
+        ->name('candidate.profile');
     });
 
     Route::get('/email/verify', [EmailVerificationController::class, 'index'])
