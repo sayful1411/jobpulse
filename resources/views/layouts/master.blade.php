@@ -17,6 +17,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
+  @stack('css')
+
 </head>
 
 <body>
@@ -54,12 +56,15 @@
 
   <script src="{{ asset('js/jquery.js') }}"></script>
   <script src="{{ asset('js/popper.min.js') }}"></script>
+  <script src="{{ asset('js/chosen.min.js') }}"></script>
   <script src="{{ asset('js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
   <script src="{{ asset('js/mmenu.js') }}"></script>
   <script src="{{ asset('js/appear.js') }}"></script>
   <script src="{{ asset('js/rellax.min.js') }}"></script>
   <script src="{{ asset('js/script.js') }}"></script>
+
+  @stack('script')
 
 </body>
 

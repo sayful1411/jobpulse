@@ -18,6 +18,13 @@ class UserProfile extends Model
         'blood_group',
         'nid',
         'phone_2',
-        'address'
+        'website',
+        'address',
+        'bio'
     ];
+
+    public function candidate()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
