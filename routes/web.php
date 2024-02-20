@@ -76,6 +76,9 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/candidate/profile', [ProfileController::class, 'index'])
         ->name('candidate.profile');
+
+        Route::post('/candidate/profile', [ProfileController::class, 'store'])
+        ->name('candidate.profile.store');
     });
 
     Route::get('/email/verify', [EmailVerificationController::class, 'index'])
