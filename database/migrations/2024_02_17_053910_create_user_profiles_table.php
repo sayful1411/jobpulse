@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('blood_group')->nullable();
             $table->integer('nid');
             $table->string('phone_2')->nullable();
+            $table->string('website')->nullable();
             $table->text('address');
             $table->timestamps();
         });

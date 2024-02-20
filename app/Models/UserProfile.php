@@ -18,6 +18,7 @@ class UserProfile extends Model
         'blood_group',
         'nid',
         'phone_2',
+        'website',
         'address'
     ];
 }
