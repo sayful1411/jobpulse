@@ -7,7 +7,9 @@ use App\Models\UserProfile;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Candidate\UpdateProfileRequest;
+use App\Http\Requests\Candidate\UpdateSocialAccountRequest;
 use App\Models\UserOthersInformation;
+use App\Models\UserSocialAccount;
 
 class ProfileController extends Controller
 {
@@ -15,7 +17,7 @@ class ProfileController extends Controller
     {
         $authID = auth()->id();
 
-        $candidate = User::with('profile', 'othersInformation')->where('id', $authID)->first();
+        $candidate = User::with('profile', 'othersInformation', 'socialAccountsInformation')->where('id', $authID)->first();
 
         return view('candidate.profile', compact('candidate'));
     }
@@ -46,5 +48,25 @@ class ProfileController extends Controller
             DB::rollback();
             return redirect()->back()->with('error', 'Failed to update profile. Please try again.');
         }
+    }
+
+    public function updateSocialAccount(UpdateSocialAccountRequest $request)
+    {
+        $authID = auth()->id();
+
+        $validatedData = $request->validated();
+
+        foreach ($validatedData['social_accounts'] as $platform => $data) {
+            if (!empty($data['title']) && empty($data['url'])) {
+                return redirect()->back()->with('error' , 'At least one URL is required.');
+            }
+
+            UserSocialAccount::updateOrCreate(
+                ['user_id' => $authID, 'title' => $platform], 
+                ['url' => $data['url']]
+            );
+        }
+
+        return redirect()->back()->with('success', 'Social account information has been updated');
     }
 }

@@ -79,6 +79,9 @@ Route::middleware('auth')->group(function () {
 
         Route::post('/candidate/profile', [ProfileController::class, 'store'])
         ->name('candidate.profile.store');
+
+        Route::post('/candidate/social', [ProfileController::class, 'updateSocialAccount'])
+        ->name('candidate.social.store');
     });
 
     Route::get('/email/verify', [EmailVerificationController::class, 'index'])

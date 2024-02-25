@@ -26,6 +26,11 @@
                                         {{ session('success') }}
                                     </div>
                                 @endif
+                                @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
 
                                 <div class="uploading-outer">
                                     <div class="uploadButton">
@@ -196,30 +201,48 @@
                             </div>
 
                             <div class="widget-content">
-                                <form class="default-form">
+                                <form method="POST" action="{{ route('candidate.social.store') }}" class="default-form">
+                                    @csrf
+
                                     <div class="row">
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>Facebook</label>
-                                            <input type="text" name="facebook">
+                                            <input type="hidden" name="social_accounts[facebook][title]" value="Facebook" class="d-none">
+                                            <input class="@error('social_accounts.facebook.url') border border-danger @enderror" type="url" name="social_accounts[facebook][url]" value="{{ old('social_accounts.facebook.url', $candidate->socialAccountsInformation[0]['url'] ?? '') }}">
+                                            @error('social_accounts.facebook.url')
+                                                <div class="mt-1 text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>Twitter</label>
-                                            <input type="text" name="twitter">
+                                            <input type="hidden" name="social_accounts[twitter][title]" value="Twitter" class="d-none">
+                                            <input class="@error('social_accounts.twitter.url') border border-danger @enderror" type="url" name="social_accounts[twitter][url]" value="{{ old('social_accounts.twitter.url', $candidate->socialAccountsInformation[1]['url'] ?? '') }}">
+                                            @error('social_accounts.twitter.url')
+                                                <div class="mt-1 text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>Linkedin</label>
-                                            <input type="text" name="linkedin">
+                                            <input type="hidden" name="social_accounts[linkedin][title]" value="LinkedIn" class="d-none">
+                                            <input class="@error('social_accounts.linkedin.url') border border-danger @enderror" type="url" name="social_accounts[linkedin][url]" value="{{ old('social_accounts.linkedin.url', $candidate->socialAccountsInformation[2]['url'] ?? '') }}">
+                                            @error('social_accounts.linkedin.url')
+                                                <div class="mt-1 text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>Google Plus</label>
-                                            <input type="text" name="google_plus">
+                                            <input type="hidden" name="social_accounts[google_plus][title]" value="Google Plus" class="d-none">
+                                            <input class="@error('social_accounts.google_plus.url') border border-danger @enderror" type="url" name="social_accounts[google_plus][url]" value="{{ old('social_accounts.google_plus.url', $candidate->socialAccountsInformation[3]['url'] ?? '') }}">
+                                            @error('social_accounts.google_plus.url')
+                                                <div class="mt-1 text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-lg-6 col-md-12">
-                                            <button class="theme-btn btn-style-one">Save</button>
+                                            <button type="submit" class="theme-btn btn-style-one">Save</button>
                                         </div>
                                     </div>
                                 </form>
