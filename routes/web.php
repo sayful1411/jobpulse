@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\Candidate\CandidateLoginController;
 use App\Http\Controllers\Auth\Candidate\ForgotPasswordController;
 use App\Http\Controllers\Auth\Candidate\CandidateRegisterController;
 use App\Http\Controllers\Candidate\ProfileController;
+use App\Http\Controllers\Candidate\ResumeController;
 use App\Http\Controllers\Candidate\UpdatePasswordController;
 
 /*
@@ -82,6 +83,9 @@ Route::middleware('auth')->group(function () {
 
         Route::post('/candidate/social', [ProfileController::class, 'updateSocialAccount'])
         ->name('candidate.social.store');
+
+        Route::get('/candidate/resume', [ResumeController::class, 'index'])
+        ->name('candidate.resume');
     });
 
     Route::get('/email/verify', [EmailVerificationController::class, 'index'])
