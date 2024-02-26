@@ -93,32 +93,50 @@
                                         <div class="resume-outer theme-blue">
                                             <div class="upper-title">
                                                 <h4>Work &amp; Experience</h4>
-                                                <button class="add-info-btn"><span class="icon flaticon-plus"></span>
-                                                    Add Work</button>
+                                                <a href="{{ route('experience.create') }}">
+                                                    <button class="add-info-btn"><span class="icon flaticon-plus"></span>
+                                                        Add Work</button></a>
                                             </div>
-                                            <!-- Resume BLock -->
-                                            <div class="resume-block">
-                                                <div class="inner">
-                                                    <span class="name">S</span>
-                                                    <div class="title-box">
-                                                        <div class="info-box">
-                                                            <h3>Product Designer</h3>
-                                                            <span>Spotify Inc.</span>
-                                                        </div>
-                                                        <div class="edit-box">
-                                                            <span class="year">2012 - 2014</span>
-                                                            <div class="edit-btns">
-                                                                <button><span class="la la-pencil"></span></button>
-                                                                <button><span class="la la-trash"></span></button>
+                                            @foreach ($experiences as $experience)
+                                                <!-- Resume BLock -->
+                                                <div class="resume-block">
+                                                    <div class="inner">
+                                                        <span
+                                                            class="name">{{ substr($experience->company_name, 0, 1) }}</span>
+                                                        <div class="title-box">
+                                                            <div class="info-box">
+                                                                <h3>{{ $experience->department }}</h3>
+                                                                <span>{{ $experience->company_name }}</span>
+                                                            </div>
+                                                            <div class="edit-box">
+                                                                <span class="year">
+                                                                    @if ($experience->is_currently_working)
+                                                                        {{ $experience->join->format('Y') . ' - ' . 'Current' }}
+                                                                    @else
+                                                                        {{ $experience->join->format('Y') . ' - ' . $experience->resign->format('Y') }}
+                                                                    @endif
+                                                                </span>
+                                                                <div class="edit-btns">
+                                                                    <a
+                                                                        href="{{ route('experience.edit', $experience->id) }}">
+                                                                        <button><span class="la la-pencil"></span></button>
+                                                                    </a>
+                                                                    <form method="POST"
+                                                                        action="{{ route('experience.destroy', $experience->id) }}">
+                                                                        @csrf
+                                                                        @method('DELETE')
+
+                                                                        <button type="submit" class="experience_popup"
+                                                                            title='Delete Experience'><span
+                                                                                class="la la-trash"></span></button>
+                                                                    </form>
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                        <div class="text">{{ $experience->responsibilities }}</div>
                                                     </div>
-                                                    <div class="text">Lorem ipsum dolor sit amet, consectetur
-                                                        adipiscing elit. Proin a ipsum tellus. Interdum et malesuada
-                                                        fames ac ante<br> ipsum primis in faucibus.</div>
                                                 </div>
-                                            </div>
-
+                                            @endforeach
                                         </div>
                                     </div>
 
@@ -229,7 +247,31 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script type="text/javascript">
+        // delete education
         $('.education_popup').click(function(event) {
+
+            var form = $(this).closest("form");
+
+            event.preventDefault();
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+
+        });
+
+        // delete experience
+        $('.experience_popup').click(function(event) {
 
             var form = $(this).closest("form");
 
