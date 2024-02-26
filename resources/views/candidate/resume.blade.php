@@ -39,8 +39,10 @@
                                         <div class="resume-outer">
                                             <div class="upper-title">
                                                 <h4>Education</h4>
-                                                <button class="add-info-btn"><span class="icon flaticon-plus"></span>
-                                                    Add Aducation</button>
+                                                <a href="{{ route('candidate.resume.education') }}">
+                                                    <button class="add-info-btn"><span class="icon flaticon-plus"></span>
+                                                        Add Aducation</button>
+                                                </a>
                                             </div>
 
                                             <!-- Resume BLock -->

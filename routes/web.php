@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\Candidate\CandidateLoginController;
 use App\Http\Controllers\Auth\Candidate\ForgotPasswordController;
 use App\Http\Controllers\Auth\Candidate\CandidateRegisterController;
 use App\Http\Controllers\Candidate\ProfileController;
+use App\Http\Controllers\Candidate\Resume\EducationController;
 use App\Http\Controllers\Candidate\ResumeController;
 use App\Http\Controllers\Candidate\UpdatePasswordController;
 
@@ -86,6 +87,12 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/candidate/resume', [ResumeController::class, 'index'])
         ->name('candidate.resume');
+
+        Route::get('/candidate/resume/add-education', [EducationController::class, 'index'])
+        ->name('candidate.resume.education');
+
+        Route::post('/candidate/resume/add-education', [EducationController::class, 'store'])
+        ->name('candidate.resume.education.store');
     });
 
     Route::get('/email/verify', [EmailVerificationController::class, 'index'])
