@@ -145,31 +145,43 @@
                                         <div class="resume-outer theme-yellow">
                                             <div class="upper-title">
                                                 <h4>Training</h4>
-                                                <button class="add-info-btn"><span class="icon flaticon-plus"></span>
-                                                    Training</button>
+                                                <a href="{{ route('training.create') }}">
+                                                    <button class="add-info-btn"><span class="icon flaticon-plus"></span>
+                                                        Training</button></a>
                                             </div>
-                                            <!-- Resume BLock -->
-                                            <div class="resume-block">
-                                                <div class="inner">
-                                                    <span class="name"></span>
-                                                    <div class="title-box">
-                                                        <div class="info-box">
-                                                            <h3>Perfect Attendance Programs</h3>
-                                                            <span></span>
-                                                        </div>
-                                                        <div class="edit-box">
-                                                            <span class="year">2012 - 2014</span>
-                                                            <div class="edit-btns">
-                                                                <button><span class="la la-pencil"></span></button>
-                                                                <button><span class="la la-trash"></span></button>
+                                            @foreach ($trainings as $training)
+                                                <!-- Resume BLock -->
+                                                <div class="resume-block">
+                                                    <div class="inner">
+                                                        <span
+                                                            class="name">{{ substr($training->institute, 0, 1) }}</span>
+                                                        <div class="title-box">
+                                                            <div class="info-box">
+                                                                <h3>{{ $training->title }}</h3>
+                                                                <span>{{ $training->institute }}</span>
+                                                            </div>
+                                                            <div class="edit-box">
+                                                                <span
+                                                                    class="year">{{ $training->completion_year }}</span>
+                                                                <div class="edit-btns">
+                                                                    <a href="{{ route('training.edit', $training->id) }}">
+                                                                        <button><span class="la la-pencil"></span></button>
+                                                                    </a>
+                                                                    <form method="POST"
+                                                                        action="{{ route('training.destroy', $training->id) }}">
+                                                                        @csrf
+                                                                        @method('DELETE')
+
+                                                                        <button type="submit" class="training_popup"
+                                                                            title='Delete Training'><span
+                                                                                class="la la-trash"></span></button>
+                                                                    </form>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="text">Lorem ipsum dolor sit amet, consectetur
-                                                        adipiscing elit. Proin a ipsum tellus. Interdum et malesuada
-                                                        fames ac ante<br> ipsum primis in faucibus.</div>
                                                 </div>
-                                            </div>
+                                            @endforeach
 
                                         </div>
                                     </div>
@@ -272,6 +284,29 @@
 
         // delete experience
         $('.experience_popup').click(function(event) {
+
+            var form = $(this).closest("form");
+
+            event.preventDefault();
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+
+        });
+
+        // delete training
+        $('.training_popup').click(function(event) {
 
             var form = $(this).closest("form");
 
