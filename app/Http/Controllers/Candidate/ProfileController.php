@@ -68,5 +68,5 @@ class ProfileController extends Controller
         }
 
         return redirect()->back()->with('success', 'Social account information has been updated');
-    }
+    }    
 }

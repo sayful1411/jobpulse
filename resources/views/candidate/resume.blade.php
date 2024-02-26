@@ -20,14 +20,18 @@
                             </div>
 
                             <div class="widget-content">
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
 
                                 <div class="row">
                                     <form class="default-form">
                                         <!-- About Company -->
                                         <div class="form-group col-lg-12 col-md-12">
                                             <label>Bio</label>
-                                            <textarea
-                                                placeholder="Spent several years working on sheep on Wall Street. Had moderate success investing in Yugo's on Wall Street. Managed a small team buying and selling Pogo sticks for farmers. Spent several years licensing licorice in West Palm Beach, FL. Developed several new methods for working it banjos in the aftermarket. Spent a weekend importing banjos in West Palm Beach, FL.In this position, the Software Engineer collaborates with Evention's Development team to continuously enhance our current software solutions as well as create new solutions to eliminate the back-office operations and management challenges present"></textarea>
+                                            <textarea placeholder="About Yourself"></textarea>
                                         </div>
                                         <div class="form-group col-lg-12 col-md-12">
                                             <button class="theme-btn btn-style-one">Save</button>
@@ -39,34 +43,49 @@
                                         <div class="resume-outer">
                                             <div class="upper-title">
                                                 <h4>Education</h4>
-                                                <a href="{{ route('candidate.resume.education') }}">
+                                                <a href="{{ route('education.create') }}">
                                                     <button class="add-info-btn"><span class="icon flaticon-plus"></span>
                                                         Add Aducation</button>
                                                 </a>
                                             </div>
 
-                                            <!-- Resume BLock -->
-                                            <div class="resume-block">
-                                                <div class="inner">
-                                                    <span class="name">M</span>
-                                                    <div class="title-box">
-                                                        <div class="info-box">
-                                                            <h3>Bachlors in Fine Arts</h3>
-                                                            <span>Modern College</span>
-                                                        </div>
-                                                        <div class="edit-box">
-                                                            <span class="year">2012 - 2014</span>
-                                                            <div class="edit-btns">
-                                                                <button><span class="la la-pencil"></span></button>
-                                                                <button><span class="la la-trash"></span></button>
+                                            @foreach ($educations as $education)
+                                                <!-- Resume BLock -->
+                                                <div class="resume-block">
+                                                    <div class="inner">
+                                                        <span
+                                                            class="name">{{ substr($education->institute_name, 0, 1) }}</span>
+                                                        <div class="title-box">
+                                                            <div class="info-box">
+                                                                <h3>{{ $education->degree_name }}</h3>
+                                                                <span>{{ $education->institute_name }}</span>
+                                                            </div>
+                                                            <div class="edit-box">
+                                                                <span class="year">PASS IN:
+                                                                    {{ $education->passing_year }}</span>
+                                                                <div class="edit-btns">
+                                                                    <a href="{{ route('education.edit', $education->id) }}">
+                                                                        <button><span class="la la-pencil"></span></button>
+                                                                    </a>
+                                                                    <form method="POST"
+                                                                        action="{{ route('education.destroy', $education->id) }}">
+                                                                        @csrf
+                                                                        @method('DELETE')
+
+                                                                        <button type="submit" class="education_popup"
+                                                                            title='Delete Education'><span
+                                                                                class="la la-trash"></span></button>
+                                                                    </form>
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                        <div class="text">
+                                                            <li>Major: {{ $education->major }}</li>
+                                                            <li>Major: {{ $education->result }}</li>
+                                                        </div>
                                                     </div>
-                                                    <div class="text">Lorem ipsum dolor sit amet, consectetur
-                                                        adipiscing elit. Proin a ipsum tellus. Interdum et malesuada
-                                                        fames ac ante<br> ipsum primis in faucibus.</div>
                                                 </div>
-                                            </div>
+                                            @endforeach
 
                                         </div>
 
@@ -207,5 +226,29 @@
 @endsection
 
 @push('script')
-    <script src="{{ asset('js/jquery.modal.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script type="text/javascript">
+        $('.education_popup').click(function(event) {
+
+            var form = $(this).closest("form");
+
+            event.preventDefault();
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+
+        });
+    </script>
 @endpush

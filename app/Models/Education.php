@@ -20,4 +20,9 @@ class Education extends Model
         'result',
         'passing_year'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

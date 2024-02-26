@@ -88,11 +88,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/candidate/resume', [ResumeController::class, 'index'])
         ->name('candidate.resume');
 
-        Route::get('/candidate/resume/add-education', [EducationController::class, 'index'])
-        ->name('candidate.resume.education');
-
-        Route::post('/candidate/resume/add-education', [EducationController::class, 'store'])
-        ->name('candidate.resume.education.store');
+        Route::resource('/candidate/resume/education', EducationController::class);
     });
 
     Route::get('/email/verify', [EmailVerificationController::class, 'index'])
