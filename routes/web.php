@@ -92,6 +92,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/candidate/resume', [ResumeController::class, 'index'])
         ->name('candidate.resume');
 
+        Route::post('/candidate/bio', [ResumeController::class, 'store'])
+        ->name('candidate.bio');
+
         Route::resource('/candidate/resume/education', EducationController::class);
 
         Route::resource('/candidate/resume/experience', ExperienceController::class);

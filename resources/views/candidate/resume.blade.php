@@ -25,13 +25,22 @@
                                         {{ session('success') }}
                                     </div>
                                 @endif
+                                @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
 
                                 <div class="row">
-                                    <form class="default-form">
-                                        <!-- About Company -->
+                                    <form method="POST" action="{{ route('candidate.bio') }}" class="default-form">
+                                        @csrf
+                                        <!-- About Candidate -->
                                         <div class="form-group col-lg-12 col-md-12">
                                             <label>Bio</label>
-                                            <textarea placeholder="About Yourself"></textarea>
+                                            <textarea name="bio" placeholder="About Yourself">{{ $candidateBio->bio ?? '' }}</textarea>
+                                            @error('bio')
+                                                <div class="mt-1 text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="form-group col-lg-12 col-md-12">
                                             <button class="theme-btn btn-style-one">Save</button>
