@@ -16,15 +16,15 @@ class ResumeController extends Controller
     {
         $authID = auth()->id();
 
-        $candidateBio = UserProfile::where('user_id', $authID)->select('bio')->first();
+        $candidateBio = UserProfile::where('user_id', $authID)->first();
 
-        $educations = Education::where('user_id', $authID)->first();
+        $educations = Education::where('user_id', $authID)->get();
 
-        $experiences = Experience::where('user_id', $authID)->first();
+        $experiences = Experience::where('user_id', $authID)->get();
 
-        $trainings = Training::where('user_id', $authID)->first();
+        $trainings = Training::where('user_id', $authID)->get();
 
-        $trainings = Training::where('user_id', $authID)->first();
+        $trainings = Training::where('user_id', $authID)->get();
 
         $candidate   = Skill::where('user_id', $authID)->first();
 

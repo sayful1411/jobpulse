@@ -37,7 +37,7 @@
                                         <!-- About Candidate -->
                                         <div class="form-group col-lg-12 col-md-12">
                                             <label>Bio</label>
-                                            <textarea name="bio" placeholder="About Yourself">{{ $candidateBio->bio ?? '' }}</textarea>
+                                            <textarea class="overflow-auto" name="bio" placeholder="About Yourself">{{ $candidateBio->bio ?? '' }}</textarea>
                                             @error('bio')
                                                 <div class="mt-1 text-danger">{{ $message }}</div>
                                             @enderror
@@ -58,7 +58,7 @@
                                                 </a>
                                             </div>
 
-                                            @if ($educations)
+                                            @if ($educations && $educations->count() > 0)
                                                 @foreach ($educations as $education)
                                                     <!-- Resume BLock -->
                                                     <div class="resume-block">
@@ -114,7 +114,7 @@
                                                     <button class="add-info-btn"><span class="icon flaticon-plus"></span>
                                                         Add Work</button></a>
                                             </div>
-                                            @if ($experiences)
+                                            @if ($experiences && $experiences->count() > 0)
                                                 @foreach ($experiences as $experience)
                                                     <!-- Resume BLock -->
                                                     <div class="resume-block">
@@ -174,7 +174,7 @@
                                                         Training</button></a>
                                             </div>
 
-                                            @if ($trainings)
+                                            @if ($trainings && $trainings->count() > 0)
                                                 @foreach ($trainings as $training)
                                                     <!-- Resume BLock -->
                                                     <div class="resume-block">
@@ -229,13 +229,12 @@
                                                         Skills</button></a>
                                             </div>
 
-                                            @if ($candidate)
-                                                @foreach ($candidate->skills as $skill)
-                                                    <!-- Resume BLock -->
-                                                    <div class="resume-block">
-                                                        <div class="inner">
-                                                            <div class="row">
-
+                                            @if ($candidate && !empty($candidate->skills))
+                                                <!-- Resume BLock -->
+                                                <div class="resume-block">
+                                                    <div class="inner">
+                                                        <div class="row">
+                                                            @foreach ($candidate->skills as $skill)
                                                                 <div class="col-6 col-md-4 my-3">
                                                                     <div class="edit-box">
                                                                         <span class="year">{{ $skill }}</span>
@@ -251,10 +250,10 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            @endforeach
                                                         </div>
                                                     </div>
-                                                @endforeach
+                                                </div>
                                             @else
                                                 <div>
                                                     <p class="py-3 text-center">Empty Skill</p>
