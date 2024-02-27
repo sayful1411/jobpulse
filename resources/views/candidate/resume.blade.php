@@ -49,43 +49,51 @@
                                                 </a>
                                             </div>
 
-                                            @foreach ($educations as $education)
-                                                <!-- Resume BLock -->
-                                                <div class="resume-block">
-                                                    <div class="inner">
-                                                        <span
-                                                            class="name">{{ substr($education->institute_name, 0, 1) }}</span>
-                                                        <div class="title-box">
-                                                            <div class="info-box">
-                                                                <h3>{{ $education->degree_name }}</h3>
-                                                                <span>{{ $education->institute_name }}</span>
-                                                            </div>
-                                                            <div class="edit-box">
-                                                                <span class="year">PASS IN:
-                                                                    {{ $education->passing_year }}</span>
-                                                                <div class="edit-btns">
-                                                                    <a href="{{ route('education.edit', $education->id) }}">
-                                                                        <button><span class="la la-pencil"></span></button>
-                                                                    </a>
-                                                                    <form method="POST"
-                                                                        action="{{ route('education.destroy', $education->id) }}">
-                                                                        @csrf
-                                                                        @method('DELETE')
+                                            @if ($educations)
+                                                @foreach ($educations as $education)
+                                                    <!-- Resume BLock -->
+                                                    <div class="resume-block">
+                                                        <div class="inner">
+                                                            <span
+                                                                class="name">{{ substr($education->institute_name, 0, 1) }}</span>
+                                                            <div class="title-box">
+                                                                <div class="info-box">
+                                                                    <h3>{{ $education->degree_name }}</h3>
+                                                                    <span>{{ $education->institute_name }}</span>
+                                                                </div>
+                                                                <div class="edit-box">
+                                                                    <span class="year">PASS IN:
+                                                                        {{ $education->passing_year }}</span>
+                                                                    <div class="edit-btns">
+                                                                        <a
+                                                                            href="{{ route('education.edit', $education->id) }}">
+                                                                            <button><span
+                                                                                    class="la la-pencil"></span></button>
+                                                                        </a>
+                                                                        <form method="POST"
+                                                                            action="{{ route('education.destroy', $education->id) }}">
+                                                                            @csrf
+                                                                            @method('DELETE')
 
-                                                                        <button type="submit" class="education_popup"
-                                                                            title='Delete Education'><span
-                                                                                class="la la-trash"></span></button>
-                                                                    </form>
+                                                                            <button type="submit" class="education_popup"
+                                                                                title='Delete Education'><span
+                                                                                    class="la la-trash"></span></button>
+                                                                        </form>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="text">
-                                                            <li>Major: {{ $education->major }}</li>
-                                                            <li>Major: {{ $education->result }}</li>
+                                                            <div class="text">
+                                                                <li>Major: {{ $education->major }}</li>
+                                                                <li>Major: {{ $education->result }}</li>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                @endforeach
+                                            @else
+                                                <div>
+                                                    <p class="py-3 text-center">Empty Education</p>
                                                 </div>
-                                            @endforeach
+                                            @endif
 
                                         </div>
 
@@ -97,46 +105,53 @@
                                                     <button class="add-info-btn"><span class="icon flaticon-plus"></span>
                                                         Add Work</button></a>
                                             </div>
-                                            @foreach ($experiences as $experience)
-                                                <!-- Resume BLock -->
-                                                <div class="resume-block">
-                                                    <div class="inner">
-                                                        <span
-                                                            class="name">{{ substr($experience->company_name, 0, 1) }}</span>
-                                                        <div class="title-box">
-                                                            <div class="info-box">
-                                                                <h3>{{ $experience->department }}</h3>
-                                                                <span>{{ $experience->company_name }}</span>
-                                                            </div>
-                                                            <div class="edit-box">
-                                                                <span class="year">
-                                                                    @if ($experience->is_currently_working)
-                                                                        {{ $experience->join->format('Y') . ' - ' . 'Current' }}
-                                                                    @else
-                                                                        {{ $experience->join->format('Y') . ' - ' . $experience->resign->format('Y') }}
-                                                                    @endif
-                                                                </span>
-                                                                <div class="edit-btns">
-                                                                    <a
-                                                                        href="{{ route('experience.edit', $experience->id) }}">
-                                                                        <button><span class="la la-pencil"></span></button>
-                                                                    </a>
-                                                                    <form method="POST"
-                                                                        action="{{ route('experience.destroy', $experience->id) }}">
-                                                                        @csrf
-                                                                        @method('DELETE')
+                                            @if ($experiences)
+                                                @foreach ($experiences as $experience)
+                                                    <!-- Resume BLock -->
+                                                    <div class="resume-block">
+                                                        <div class="inner">
+                                                            <span
+                                                                class="name">{{ substr($experience->company_name, 0, 1) }}</span>
+                                                            <div class="title-box">
+                                                                <div class="info-box">
+                                                                    <h3>{{ $experience->department }}</h3>
+                                                                    <span>{{ $experience->company_name }}</span>
+                                                                </div>
+                                                                <div class="edit-box">
+                                                                    <span class="year">
+                                                                        @if ($experience->is_currently_working)
+                                                                            {{ $experience->join->format('Y') . ' - ' . 'Current' }}
+                                                                        @else
+                                                                            {{ $experience->join->format('Y') . ' - ' . $experience->resign->format('Y') }}
+                                                                        @endif
+                                                                    </span>
+                                                                    <div class="edit-btns">
+                                                                        <a
+                                                                            href="{{ route('experience.edit', $experience->id) }}">
+                                                                            <button><span
+                                                                                    class="la la-pencil"></span></button>
+                                                                        </a>
+                                                                        <form method="POST"
+                                                                            action="{{ route('experience.destroy', $experience->id) }}">
+                                                                            @csrf
+                                                                            @method('DELETE')
 
-                                                                        <button type="submit" class="experience_popup"
-                                                                            title='Delete Experience'><span
-                                                                                class="la la-trash"></span></button>
-                                                                    </form>
+                                                                            <button type="submit" class="experience_popup"
+                                                                                title='Delete Experience'><span
+                                                                                    class="la la-trash"></span></button>
+                                                                        </form>
+                                                                    </div>
                                                                 </div>
                                                             </div>
+                                                            <div class="text">{{ $experience->responsibilities }}</div>
                                                         </div>
-                                                        <div class="text">{{ $experience->responsibilities }}</div>
                                                     </div>
+                                                @endforeach
+                                            @else
+                                                <div>
+                                                    <p class="py-3 text-center">Empty Experience</p>
                                                 </div>
-                                            @endforeach
+                                            @endif
                                         </div>
                                     </div>
 
@@ -149,39 +164,48 @@
                                                     <button class="add-info-btn"><span class="icon flaticon-plus"></span>
                                                         Training</button></a>
                                             </div>
-                                            @foreach ($trainings as $training)
-                                                <!-- Resume BLock -->
-                                                <div class="resume-block">
-                                                    <div class="inner">
-                                                        <span
-                                                            class="name">{{ substr($training->institute, 0, 1) }}</span>
-                                                        <div class="title-box">
-                                                            <div class="info-box">
-                                                                <h3>{{ $training->title }}</h3>
-                                                                <span>{{ $training->institute }}</span>
-                                                            </div>
-                                                            <div class="edit-box">
-                                                                <span
-                                                                    class="year">{{ $training->completion_year }}</span>
-                                                                <div class="edit-btns">
-                                                                    <a href="{{ route('training.edit', $training->id) }}">
-                                                                        <button><span class="la la-pencil"></span></button>
-                                                                    </a>
-                                                                    <form method="POST"
-                                                                        action="{{ route('training.destroy', $training->id) }}">
-                                                                        @csrf
-                                                                        @method('DELETE')
 
-                                                                        <button type="submit" class="training_popup"
-                                                                            title='Delete Training'><span
-                                                                                class="la la-trash"></span></button>
-                                                                    </form>
+                                            @if ($trainings)
+                                                @foreach ($trainings as $training)
+                                                    <!-- Resume BLock -->
+                                                    <div class="resume-block">
+                                                        <div class="inner">
+                                                            <span
+                                                                class="name">{{ substr($training->institute, 0, 1) }}</span>
+                                                            <div class="title-box">
+                                                                <div class="info-box">
+                                                                    <h3>{{ $training->title }}</h3>
+                                                                    <span>{{ $training->institute }}</span>
+                                                                </div>
+                                                                <div class="edit-box">
+                                                                    <span
+                                                                        class="year">{{ $training->completion_year }}</span>
+                                                                    <div class="edit-btns">
+                                                                        <a
+                                                                            href="{{ route('training.edit', $training->id) }}">
+                                                                            <button><span
+                                                                                    class="la la-pencil"></span></button>
+                                                                        </a>
+                                                                        <form method="POST"
+                                                                            action="{{ route('training.destroy', $training->id) }}">
+                                                                            @csrf
+                                                                            @method('DELETE')
+
+                                                                            <button type="submit" class="training_popup"
+                                                                                title='Delete Training'><span
+                                                                                    class="la la-trash"></span></button>
+                                                                        </form>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                @endforeach
+                                            @else
+                                                <div>
+                                                    <p class="py-3 text-center">Empty Training</p>
                                                 </div>
-                                            @endforeach
+                                            @endif
 
                                         </div>
                                     </div>
@@ -195,12 +219,14 @@
                                                     <button class="add-info-btn"><span class="icon flaticon-plus"></span>
                                                         Skills</button></a>
                                             </div>
-                                            <!-- Resume BLock -->
-                                            <div class="resume-block">
-                                                <div class="inner">
-                                                    <div class="row">
-                                                        @if ($candidate)
-                                                            @forelse ($candidate->skills as $skill)
+
+                                            @if ($candidate)
+                                                @foreach ($candidate->skills as $skill)
+                                                    <!-- Resume BLock -->
+                                                    <div class="resume-block">
+                                                        <div class="inner">
+                                                            <div class="row">
+
                                                                 <div class="col-6 col-md-4 my-3">
                                                                     <div class="edit-box">
                                                                         <span class="year">{{ $skill }}</span>
@@ -216,16 +242,15 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            @empty
-                                                                <div>
-                                                                    <p class="text-center">No skills found</p>
-                                                                </div>
-                                                            @endforelse
-                                                        @endif
+                                                            </div>
+                                                        </div>
                                                     </div>
+                                                @endforeach
+                                            @else
+                                                <div>
+                                                    <p class="py-3 text-center">Empty Skill</p>
                                                 </div>
-                                            </div>
-
+                                            @endif
                                         </div>
                                     </div>
 

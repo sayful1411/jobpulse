@@ -15,11 +15,14 @@ class ResumeController extends Controller
     {
         $authID = auth()->id();
 
-        $educations = Education::all();
-        $experiences = Experience::all();
-        $trainings = Training::all();
-        $trainings = Training::all();
+        $educations = Education::where('user_id', $authID)->first();
         
+        $experiences = Experience::where('user_id', $authID)->first();
+
+        $trainings = Training::where('user_id', $authID)->first();
+
+        $trainings = Training::where('user_id', $authID)->first();
+
         $candidate   = Skill::where('user_id', $authID)->first();
 
         return view('candidate.resume', compact('educations', 'experiences', 'trainings', 'candidate'));
