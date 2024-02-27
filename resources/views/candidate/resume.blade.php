@@ -191,49 +191,37 @@
                                         <div class="resume-outer theme-yellow">
                                             <div class="upper-title">
                                                 <h4>Skills</h4>
-                                                <button class="add-info-btn"><span class="icon flaticon-plus"></span>
-                                                    Skills</button>
+                                                <a href="{{ route('skill.create') }}">
+                                                    <button class="add-info-btn"><span class="icon flaticon-plus"></span>
+                                                        Skills</button></a>
                                             </div>
                                             <!-- Resume BLock -->
                                             <div class="resume-block">
                                                 <div class="inner">
                                                     <div class="row">
-                                                        <div class="col-3">
-                                                            <div class="edit-box">
-                                                                <span class="year">2012 - 2014</span>
-                                                                <div class="edit-btns">
-                                                                    <button><span class="la la-pencil"></span></button>
-                                                                    <button><span class="la la-trash"></span></button>
+                                                        @if ($candidate)
+                                                            @forelse ($candidate->skills as $skill)
+                                                                <div class="col-6 col-md-4 my-3">
+                                                                    <div class="edit-box">
+                                                                        <span class="year">{{ $skill }}</span>
+                                                                        <div class="edit-btns">
+                                                                            <form
+                                                                                action="{{ route('skill.destroy', $skill) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"><span
+                                                                                        class="la la-trash"></span></button>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-3">
-                                                            <div class="edit-box">
-                                                                <span class="year">2012 - 2014</span>
-                                                                <div class="edit-btns">
-                                                                    <button><span class="la la-pencil"></span></button>
-                                                                    <button><span class="la la-trash"></span></button>
+                                                            @empty
+                                                                <div>
+                                                                    <p class="text-center">No skills found</p>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-3">
-                                                            <div class="edit-box">
-                                                                <span class="year">2012 - 2014</span>
-                                                                <div class="edit-btns">
-                                                                    <button><span class="la la-pencil"></span></button>
-                                                                    <button><span class="la la-trash"></span></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-3">
-                                                            <div class="edit-box">
-                                                                <span class="year">2012 - 2014</span>
-                                                                <div class="edit-btns">
-                                                                    <button><span class="la la-pencil"></span></button>
-                                                                    <button><span class="la la-trash"></span></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                            @endforelse
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>

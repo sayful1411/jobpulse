@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\Candidate\CandidateRegisterController;
 use App\Http\Controllers\Candidate\ProfileController;
 use App\Http\Controllers\Candidate\Resume\EducationController;
 use App\Http\Controllers\Candidate\Resume\ExperienceController;
+use App\Http\Controllers\Candidate\Resume\SkillController;
 use App\Http\Controllers\Candidate\Resume\TrainingController;
 use App\Http\Controllers\Candidate\ResumeController;
 use App\Http\Controllers\Candidate\UpdatePasswordController;
@@ -96,6 +97,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('/candidate/resume/experience', ExperienceController::class);
 
         Route::resource('/candidate/resume/training', TrainingController::class);
+
+        Route::resource('/candidate/resume/skill', SkillController::class)->except('show', 'edit', 'update');
     });
 
     Route::get('/email/verify', [EmailVerificationController::class, 'index'])
