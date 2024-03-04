@@ -34,7 +34,7 @@ class UpdateProfileRequest extends FormRequest
             'expected_salary' => ['nullable', 'numeric'],
             'father_name' => ['nullable', 'string', 'max:100'],
             'mother_name' => ['nullable', 'string', 'max:100'],
-            'blood_group' => ['nullable', 'string', 'max:2'],
+            'blood_group' => ['nullable', 'string', 'max:3'],
             'date_of_birth' => ['required', 'date'],
             'gender' => ['required'],
             'address' => ['required', 'string', 'max:255']
