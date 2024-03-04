@@ -25,7 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         'phone',
         'provider_id',
         'avatar',
-        'password'
+        'password',
     ];
 
     /**
@@ -47,6 +47,15 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public const PLACEHOLDER_IMAGE_PATH = 'avatar.png';
+
+    public function getImageUrlAttribute()
+    {
+        return $this->hasMedia('candidate_avatar')
+        ? $this->getFirstMediaUrl('candidate_avatar')
+        : self::PLACEHOLDER_IMAGE_PATH;
+    }
 
     public function profile()
     {

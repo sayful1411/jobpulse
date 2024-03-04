@@ -89,6 +89,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/candidate/social', [ProfileController::class, 'updateSocialAccount'])
         ->name('candidate.social.store');
 
+        Route::post('/candidate/avatar', [ProfileController::class, 'updateAvatar'])
+        ->name('candidate.avatar.update');
+
         Route::get('/candidate/resume', [ResumeController::class, 'index'])
         ->name('candidate.resume');
 

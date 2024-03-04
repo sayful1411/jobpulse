@@ -1,6 +1,12 @@
 <div class="dropdown dashboard-option">
     <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
-        <img src="{{ asset('images/resource/company-6.png') }}" alt="avatar" class="thumb">
+        @if ($candidate->image_url)
+            <img class="thumb"
+                src="{{ asset($candidate->image_url) }}" alt="">
+        @else
+            <img style="width: 12rem; height: 12rem;" class="object-fit-cover rounded"
+                src="{{ asset(\App\Models\User::PLACEHOLDER_IMAGE_PATH) }}" alt="">
+        @endif
         <span class="name">My Account</span>
     </a>
     <ul class="dropdown-menu">
