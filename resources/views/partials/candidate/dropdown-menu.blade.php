@@ -1,8 +1,8 @@
 <div class="dropdown dashboard-option">
     <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
-        @if ($candidate->image_url)
+        @if (Auth::check() && auth()->user()->image_url)
             <img class="thumb"
-                src="{{ asset($candidate->image_url) }}" alt="">
+                src="{{ auth()->user()->image_url }}" alt="">
         @else
             <img style="width: 12rem; height: 12rem;" class="object-fit-cover rounded"
                 src="{{ asset(\App\Models\User::PLACEHOLDER_IMAGE_PATH) }}" alt="">
