@@ -9,7 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use App\Providers\RouteServiceProvider;
 use App\Http\Requests\Auth\Candidate\RegisterRequest;
 
-class CandidateRegisterController extends Controller
+class RegisterController extends Controller
 {
     public function index()
     {

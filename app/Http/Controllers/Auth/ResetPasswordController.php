@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth\Candidate;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -12,12 +12,12 @@ use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {
-    public function index(Request $request)
+    public function candidateResetPasswordPage(Request $request)
     {
         return view('auth.candidate.reset-password', ['request' => $request]);
     }
 
-    public function store(Request $request)
+    public function candidateResetPassword(Request $request)
     {
         $request->validate([
             'token' => 'required',
