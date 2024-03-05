@@ -5,8 +5,8 @@
             <!--Nav Outer -->
             <div class="nav-outer">
                 <div class="logo-box">
-                    <div class="logo"><a href="{{ route('home') }}"><img src="{{ asset('images/logo.svg') }}" alt=""
-                                title=""></a></div>
+                    <div class="logo"><a href="{{ route('home') }}"><img src="{{ asset('images/logo.svg') }}"
+                                alt="" title=""></a></div>
                 </div>
 
                 @include('partials.navbar')
@@ -25,14 +25,21 @@
                 </button>
 
                 <!-- Dashboard Option -->
-                @include('partials.candidate.dropdown-menu')
+                @auth('web')
+                    @include('partials.candidate.dropdown-menu')
+                @endauth
+
+                @auth('company')
+                    @include('partials.company.dropdown-menu')
+                @endauth
             </div>
         </div>
     </div>
 
     <!-- Mobile Header -->
     <div class="mobile-header">
-        <div class="logo"><a href="{{ route('home') }}"><img src="{{ asset('images/logo.svg') }}" alt="" title=""></a>
+        <div class="logo"><a href="{{ route('home') }}"><img src="{{ asset('images/logo.svg') }}" alt=""
+                    title=""></a>
         </div>
 
         <!--Nav Box-->

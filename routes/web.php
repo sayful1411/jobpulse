@@ -1,20 +1,21 @@
 <?php
 
-use App\Http\Controllers\Auth\Candidate\CandidateLoginController;
-use App\Http\Controllers\Auth\Candidate\CandidateRegisterController;
-use App\Http\Controllers\Auth\Candidate\ForgotPasswordController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Candidate\ResumeController;
+use App\Http\Controllers\Candidate\ProfileController;
+use App\Http\Controllers\Auth\Company\LoginController;
 use App\Http\Controllers\Auth\Candidate\LogoutController;
-use App\Http\Controllers\Auth\Candidate\ResetPasswordController;
 use App\Http\Controllers\Auth\Company\RegisterController;
 use App\Http\Controllers\Auth\EmailVerificationController;
-use App\Http\Controllers\Candidate\ProfileController;
-use App\Http\Controllers\Candidate\ResumeController;
+use App\Http\Controllers\Candidate\Resume\SkillController;
+use App\Http\Controllers\Candidate\UpdatePasswordController;
+use App\Http\Controllers\Candidate\Resume\TrainingController;
 use App\Http\Controllers\Candidate\Resume\EducationController;
 use App\Http\Controllers\Candidate\Resume\ExperienceController;
-use App\Http\Controllers\Candidate\Resume\SkillController;
-use App\Http\Controllers\Candidate\Resume\TrainingController;
-use App\Http\Controllers\Candidate\UpdatePasswordController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\Candidate\ResetPasswordController;
+use App\Http\Controllers\Auth\Candidate\CandidateLoginController;
+use App\Http\Controllers\Auth\Candidate\ForgotPasswordController;
+use App\Http\Controllers\Auth\Candidate\CandidateRegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,12 +58,19 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [ResetPasswordController::class, 'store'])
         ->name('password.store');
+});
 
-    // company auth
-    Route::get('/company/register', [RegisterController::class, 'index'])
-        ->name('company.register');
+// company auth
+Route::group(['prefix' => 'company', 'as' => 'company.', 'middleware' => 'guest:company'], function () {
+    Route::get('/register', [RegisterController::class, 'index'])
+        ->name('register');
 
-    Route::post('/company/register', [RegisterController::class, 'store']);
+    Route::post('/register', [RegisterController::class, 'store']);
+
+    Route::get('/login', [LoginController::class, 'index'])
+        ->name('login');
+
+    Route::post('/login', [LoginController::class, 'store']);
 });
 
 Route::middleware('auth')->group(function () {

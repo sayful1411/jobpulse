@@ -161,7 +161,7 @@
                         </form>
 
                         <div class="bottom-box">
-                            <div class="text">Already have an account? <a href="">Sign
+                            <div class="text">Already have an account? <a href="{{ route('company.login') }}">Sign
                                     In</a>
                             </div>
                         </div>

@@ -12,7 +12,7 @@
               <a href="{{ route('candidate.login') }}" class="theme-btn btn-style-four"><i class="la la-user"></i> Candidate </a>
             </div>
             <div class="col-lg-6 col-md-12">
-              <a href="#" class="theme-btn btn-style-two"><i class="la la-briefcase"></i> Company </a>
+              <a href="{{ route('company.login') }}" class="theme-btn btn-style-two"><i class="la la-briefcase"></i> Company </a>
             </div>
           </div>
         </div>

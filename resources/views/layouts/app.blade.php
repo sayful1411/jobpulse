@@ -39,11 +39,24 @@
         <div class="preloader"></div>
 
         <!-- Main Header-->
-        @guest
+        {{-- @guest
             @include('partials.header')
-        @endguest
+        @endguest --}}
 
-        @auth
+        @if (auth()->check() || auth()->guard('company')->check())
+        @else
+            @include('partials.header')
+        @endif
+
+        @auth('web')
+            <div class="sidebar-backdrop"></div>
+            @include('partials.dashboard-header')
+            <div class="sidebar-menu-container">
+                @include('partials.candidate.sidebar-menu')
+            </div>
+        @endauth
+
+        @auth('company')
             <div class="sidebar-backdrop"></div>
             @include('partials.dashboard-header')
             <div class="sidebar-menu-container">

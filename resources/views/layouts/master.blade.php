@@ -2,69 +2,75 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title> @yield('title') </title>
+    <meta charset="utf-8">
+    <title> @yield('title') </title>
 
-  <!-- Stylesheets -->
-  <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+    <!-- Stylesheets -->
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
 
-  <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-  <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
 
-  <!-- Responsive -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-  @stack('css')
+    @stack('css')
 
 </head>
 
 <body>
 
-  <div class="page-wrapper dashboard">
+    <div class="page-wrapper dashboard">
 
-    <!-- Preloader -->
-    <div class="preloader"></div>
+        <!-- Preloader -->
+        <div class="preloader"></div>
 
-    <!-- Header Span -->
-    <span class="header-span"></span>
+        <!-- Header Span -->
+        <span class="header-span"></span>
 
-    <!-- Main Header-->
-    @include('partials.dashboard-header')
-    <!--End Main Header -->
+        <!-- Main Header-->
+        @include('partials.dashboard-header')
+        <!--End Main Header -->
 
-    <!-- Sidebar Backdrop -->
-    <div class="sidebar-backdrop"></div>
+        <!-- Sidebar Backdrop -->
+        <div class="sidebar-backdrop"></div>
 
-    <!-- User Sidebar -->
-    @include('partials.candidate.sidebar-menu')
-    <!-- End User Sidebar -->
+        <!-- Sidebar -->
+        @auth('web')
+            @include('partials.candidate.sidebar-menu')
+        @endauth
 
-    <!-- Dashboard -->
-    @yield('content')
-    <!-- End Dashboard -->
+        @auth('company')
+            @include('partials.company.sidebar-menu')
+        @endauth
+        <!-- End Sidebar -->
 
-    <!-- Copyright -->
-    <div class="copyright-text">
-      <p>© {{ date('Y') }} <a href="{{ route('home') }}">{{ config('app.name') }}</a>. All Right Reserved.</p>
-    </div>
+        <!-- Dashboard -->
+        @yield('content')
+        <!-- End Dashboard -->
 
-  </div><!-- End Page Wrapper -->
+        <!-- Copyright -->
+        <div class="copyright-text">
+            <p>© {{ date('Y') }} <a href="{{ route('home') }}">{{ config('app.name') }}</a>. All Right Reserved.</p>
+        </div>
+
+    </div><!-- End Page Wrapper -->
 
 
-  <script src="{{ asset('js/jquery.js') }}"></script>
-  <script src="{{ asset('js/popper.min.js') }}"></script>
-  <script src="{{ asset('js/chosen.min.js') }}"></script>
-  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
-  <script src="{{ asset('js/mmenu.js') }}"></script>
-  <script src="{{ asset('js/appear.js') }}"></script>
-  <script src="{{ asset('js/rellax.min.js') }}"></script>
-  <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/chosen.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/mmenu.js') }}"></script>
+    <script src="{{ asset('js/appear.js') }}"></script>
+    <script src="{{ asset('js/rellax.min.js') }}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
 
-  @stack('script')
+    @stack('script')
 
 </body>
 
