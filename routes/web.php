@@ -62,7 +62,7 @@ Route::group(['prefix' => 'company', 'as' => 'company.', 'middleware' => 'guest:
 });
 
 // reset password
-Route::middleware(['guest', 'guest:company'])->group(function () {
+Route::middleware(['guest:web,company'])->group(function () {
     Route::get('reset-password/{token}', [ResetPasswordController::class, 'candidateResetPasswordPage'])
         ->name('password.reset');
 
@@ -71,7 +71,7 @@ Route::middleware(['guest', 'guest:company'])->group(function () {
 });
 
 // verify
-Route::middleware(['auth', 'auth:company'])->group(function () {
+Route::middleware(['auth:web,company'])->group(function () {
     Route::get('/email/verify', [EmailVerificationController::class, 'index'])
         ->name('verification.notice');
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth\Company;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Company\RegisterRequest;
 use App\Models\Company;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -19,6 +21,10 @@ class RegisterController extends Controller
 
         $company = Company::create($validatedData);
 
-        return response()->json($company);
+        event(new Registered($company));
+
+        Auth::guard('company')->login($company);
+
+        return redirect()->route('verification.notice');
     }
 }
