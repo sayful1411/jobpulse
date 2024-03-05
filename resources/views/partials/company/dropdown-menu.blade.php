@@ -22,14 +22,14 @@
         <li><a href="dashboard-change-password.html"><i class="la la-lock"></i>Change Password</a></li>
         <li><a href="dashboard-company-profile.html"><i class="la la-user-alt"></i>View Profile</a></li>
         <li>
-            {{-- <form method="POST" action="{{ route('candidate.logout') }}">
+            <form method="POST" action="{{ route('company.logout') }}">
                 @csrf
-                <a href="{{ route('candidate.logout') }}"
+                <a href="{{ route('company.logout') }}"
                     onclick="event.preventDefault();
                 this.closest('form').submit();">
                     <i class="la la-sign-out"></i>Logout
                 </a>
-            </form> --}}
+            </form>
         </li>
     </ul>
 </div>

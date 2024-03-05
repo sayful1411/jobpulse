@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\Auth\Candidate\LoginController as CandidateLoginController;
-use App\Http\Controllers\Auth\Candidate\LogoutController;
+use App\Http\Controllers\Auth\Candidate\LogoutController as CandidateLogoutController;
 use App\Http\Controllers\Auth\Candidate\RegisterController as CandidateRegisterController;
 use App\Http\Controllers\Auth\Company\LoginController as CompanyLoginController;
+use App\Http\Controllers\Auth\Company\LogoutController as CompanyLogoutController;
 use App\Http\Controllers\Auth\Company\RegisterController as CompanyRegisterController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -126,5 +127,14 @@ Route::middleware('auth')->group(function () {
         Route::resource('/candidate/resume/skill', SkillController::class)->except('show', 'edit', 'update');
     });
 
-    Route::post('/candidate/logout', LogoutController::class)->name('candidate.logout');
+    Route::post('/candidate/logout', CandidateLogoutController::class)->name('candidate.logout');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Company Routes
+|--------------------------------------------------------------------------
+ */
+Route::middleware('auth:company')->group(function () {
+    Route::post('/company/logout', CompanyLogoutController::class)->name('company.logout');
 });
