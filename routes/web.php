@@ -136,5 +136,16 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
  */
 Route::middleware('auth:company')->group(function () {
+
+    Route::get('/status', function () {
+        return view('approval');
+    })->name('disapproved');
+
+    Route::middleware(['verified', 'approved'])->group(function () {
+        Route::get('/company/dashboard', function () {
+            return view('company.dashboard');
+        })->name('company.dashboard');
+    });
+
     Route::post('/company/logout', CompanyLogoutController::class)->name('company.logout');
 });
