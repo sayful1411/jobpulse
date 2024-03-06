@@ -67,11 +67,6 @@
                                                         <div class="option-box">
                                                             <ul class="option-list">
                                                                 <li>
-                                                                    <button data-text="View Jobs">
-                                                                        <span class="la la-eye"></span>
-                                                                    </button>
-                                                                </li>
-                                                                <li>
                                                                     <a href="{{ route('jobs.edit', $job->id) }}">
                                                                         <button data-text="Edit Jobs">
                                                                             <span class="la la-pencil"></span>
@@ -79,9 +74,11 @@
                                                                     </a>
                                                                 </li>
                                                                 <li>
-                                                                    <button data-text="Delete Jobs">
-                                                                        <span class="la la-trash"></span>
-                                                                    </button>
+                                                                    <a onclick="deleteJob({{ $job->id }})">
+                                                                        <button data-text="Delete Jobs">
+                                                                            <span class="la la-trash"></span>
+                                                                        </button>
+                                                                    </a>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -104,3 +101,44 @@
         </div>
     </section>
 @endsection
+
+@push('script')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function deleteJob(jobId) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ route('jobs.destroy', ':id') }}".replace(':id', jobId),
+                        type: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 3000
+                            });
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(xhr.status);
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+@endpush
