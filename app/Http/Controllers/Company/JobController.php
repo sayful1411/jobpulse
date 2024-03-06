@@ -17,7 +17,9 @@ class JobController extends Controller
      */
     public function index()
     {
-        //
+        $jobs = JobListing::orderByDesc('created_at')->simplePaginate(10);
+
+        return view('company.jobs.index', compact('jobs'));
     }
 
     /**
@@ -27,7 +29,7 @@ class JobController extends Controller
     {
         $tags = Tag::all();
         
-        return view('company.jobs.create-job', compact('tags'));
+        return view('company.jobs.create', compact('tags'));
     }
 
     /**
