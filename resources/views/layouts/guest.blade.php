@@ -106,6 +106,8 @@
     <script src="{{ asset('js/rellax.min.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
 
+    @stack('scripts')
+
 </body>
 
 </html>
