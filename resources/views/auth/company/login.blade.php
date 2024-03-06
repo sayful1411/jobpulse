@@ -41,7 +41,7 @@
                                     <label for="remember" class="remember"><span class="custom-checkbox"></span>
                                         Remember me</label>
                                 </div>
-                                <a href="#" class="pwd">Forgot password?</a>
+                                <a href="{{ route('company.forgot.password') }}" class="pwd">Forgot password?</a>
                             </div>
                         </div>
 

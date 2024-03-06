@@ -41,7 +41,8 @@ Route::group(['prefix' => 'candidate', 'middleware' => 'guest'], function () {
     Route::get('/forgot-password', [ForgotPasswordController::class, 'candidateSendLinkPage'])
         ->name('candidate.forgot.password');
 
-    Route::post('/forgot-password', [ForgotPasswordController::class, 'candidateSendLink']);
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'sendLink'])
+        ->defaults('guard', 'users');
 });
 
 // company auth
@@ -56,18 +57,19 @@ Route::group(['prefix' => 'company', 'as' => 'company.', 'middleware' => 'guest:
 
     Route::post('/login', [CompanyLoginController::class, 'store']);
 
-    Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'companySendLinkPage'])
         ->name('forgot.password');
 
-    Route::post('/forgot-password', [ForgotPasswordController::class, 'store']);
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'sendLink'])
+        ->defaults('guard', 'companies');
 });
 
 // reset password
 Route::middleware(['guest:web,company'])->group(function () {
-    Route::get('reset-password/{token}', [ResetPasswordController::class, 'candidateResetPasswordPage'])
+    Route::get('reset-password/{token}/{guard}', [ResetPasswordController::class, 'resetPasswordPage'])
         ->name('password.reset');
 
-    Route::post('reset-password', [ResetPasswordController::class, 'candidateResetPassword'])
+    Route::post('reset-password', [ResetPasswordController::class, 'resetPassword'])
         ->name('password.store');
 });
 

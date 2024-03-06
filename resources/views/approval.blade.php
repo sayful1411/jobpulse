@@ -22,6 +22,15 @@
             color: red;
             text-decoration: underline;
         }
+
+        a {
+            padding: 8px;
+            margin: 0 5px;
+            text-decoration: none;
+            border-radius: 5px;
+            background: #333;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -32,6 +41,21 @@
         <h3 class="w3-center w3-animate-right">Please wait for admin approval</h3>
         <h3 class="w3-center w3-animate-zoom">🚫🚫🚫🚫</h3>
         <h6 class="w3-center w3-animate-zoom">error code:403 forbidden</h6>
+
+        <div style="display: flex; align-items:center; justify-content:center">
+            <a href="{{ route('home') }}">
+                Go to Webpage
+            </a>
+
+            <form method="POST" action="{{ route('company.logout') }}">
+                @csrf
+                <a href="{{ route('company.logout') }}"
+                    onclick="event.preventDefault();
+                    this.closest('form').submit();">
+                    Logout
+                </a>
+            </form>
+        </div>
     </div>
 </body>
 

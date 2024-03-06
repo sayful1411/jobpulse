@@ -3,21 +3,26 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\User;
-use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use Illuminate\Auth\Events\PasswordReset;
 
 class ResetPasswordController extends Controller
 {
-    public function candidateResetPasswordPage(Request $request)
+    public function resetPasswordPage(Request $request)
     {
-        return view('auth.candidate.reset-password', ['request' => $request]);
+        $token = $request->token;
+        $guard = $request->guard;
+        $email = $request->email;
+
+        return view('auth.reset-password', compact('token', 'guard', 'email'));
     }
 
-    public function candidateResetPassword(Request $request)
+    public function resetPassword(Request $request)
     {
         $request->validate([
             'token' => 'required',
@@ -25,9 +30,15 @@ class ResetPasswordController extends Controller
             'password' => 'required|min:8|confirmed',
         ]);
 
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function (User $user, string $password) {
+        $credentials = $request->only(
+            'email', 'password', 'password_confirmation', 'token'
+        );
+
+        $guard = $request->input('guard') === 'companies' ? 'companies' : 'users';
+
+        $status = Password::broker($guard)->reset(
+            $credentials,
+            function ($user, string $password) {
                 $user->forceFill([
                     'password' => Hash::make($password),
                 ])->setRememberToken(Str::random(60));
@@ -38,8 +49,17 @@ class ResetPasswordController extends Controller
             }
         );
 
-        return $status === Password::PASSWORD_RESET
-        ? redirect()->route('candidate.login')->with('success', __($status))
-        : back()->withErrors(['email' => [__($status)]]);
+        if ($status == Password::PASSWORD_RESET) {
+            if ($guard === 'companies') {
+                return redirect()->route('company.login')->with('success', __($status));
+            } else {
+                return redirect()->route('candidate.login')->with('success', __($status));
+            }
+        } else {
+            return back()
+                ->withInput($request->only('email'))
+                ->withErrors(['email' => __($status)]);
+        }
     }
+
 }

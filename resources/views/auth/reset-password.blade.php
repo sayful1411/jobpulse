@@ -15,12 +15,13 @@
                     <form method="post" action="{{ route('password.store') }}">
                         @csrf
 
-                        <input type="hidden" name="token" value="{{ $request->route('token') }}">
+                        <input type="hidden" name="token" value="{{ $token }}">
+                        <input type="hidden" name="guard" value="{{ $guard }}">
 
                         <div class="form-group">
                             <label for="email">Email Address</label>
                             <input class="@error('email') border border-danger @enderror" id="email" type="email"
-                                name="email" placeholder="Email" value="{{ old('email', $request->email) }}">
+                                name="email" placeholder="Email" value="{{ old('email', $email) }}">
                             @error('email')
                                 <div class="mt-1 text-danger">{{ $message }}</div>
                             @enderror
