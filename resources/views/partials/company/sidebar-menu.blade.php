@@ -5,7 +5,7 @@
             <li class="{{ request()->routeIs('company.dashboard') ? 'active' : '' }}"><a href="{{ route('company.dashboard') }}"> <i class="la la-home"></i> Dashboard</a></li>
             <li><a href="dashboard-company-profile.html"><i class="la la-user-tie"></i>Company Profile</a></li>
             <li class="{{ request()->routeIs('jobs.create') ? 'active' : '' }}"><a href="{{ route('jobs.create') }}"><i class="la la-paper-plane"></i>Post a New Job</a></li>
-            <li class="{{ request()->routeIs('jobs.index') ? 'active' : '' }}"><a href="{{ route('jobs.index') }}"><i class="la la-briefcase"></i> Manage Jobs </a></li>
+            <li class="{{ request()->routeIs('jobs.*') && !request()->routeIs('jobs.create') ? 'active' : '' }}"><a href="{{ route('jobs.index') }}"><i class="la la-briefcase"></i> Manage Jobs </a></li>
             <li><a href="dashboard-applicants.html"><i class="la la-file-invoice"></i> All Applicants</a></li>
             <li><a href="dashboard-resumes.html"><i class="la la-bookmark-o"></i>Shortlisted Resumes</a></li>
             <li><a href="dashboard-packages.html"><i class="la la-box"></i>Packages</a></li>

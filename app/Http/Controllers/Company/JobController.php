@@ -53,7 +53,7 @@ class JobController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(JobListing $job)
     {
         //
     }
@@ -61,23 +61,35 @@ class JobController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(JobListing $job)
     {
-        //
+        $tags = Tag::all();
+
+        return view('company.jobs.edit', compact('job', 'tags'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreJobRequest $request, JobListing $job)
     {
-        //
+        $validatedData = $request->validated();
+
+        $validatedData['company_id'] = auth()->user()->id;
+        
+        DB::transaction(function() use ($job, $validatedData) {
+            $job->update($validatedData);
+            $job->tags()->detach();
+            $job->tags()->attach($validatedData['tags']);
+        });
+
+        return redirect()->back()->with('success', 'Job updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(JobListing $job)
     {
         //
     }
