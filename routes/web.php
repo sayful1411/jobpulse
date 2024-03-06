@@ -16,6 +16,7 @@ use App\Http\Controllers\Candidate\Resume\ExperienceController;
 use App\Http\Controllers\Candidate\Resume\SkillController;
 use App\Http\Controllers\Candidate\Resume\TrainingController;
 use App\Http\Controllers\Candidate\UpdatePasswordController;
+use App\Http\Controllers\Company\JobController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -147,6 +148,8 @@ Route::middleware('auth:company')->group(function () {
         Route::get('/company/dashboard', function () {
             return view('company.dashboard');
         })->name('company.dashboard');
+
+        Route::resource('/jobs', JobController::class);
     });
 
     Route::post('/company/logout', CompanyLogoutController::class)->name('company.logout');

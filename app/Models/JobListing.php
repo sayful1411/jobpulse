@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Job extends Model
+class JobListing extends Model
 {
     use HasFactory;
 
@@ -15,10 +15,16 @@ class Job extends Model
         'description',
         'salary_range',
         'expiration_date',
+        'job_type',
         'location',
     ];
 
     protected $casts = [
         'expiration_date' => 'datetime',
     ];
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }
