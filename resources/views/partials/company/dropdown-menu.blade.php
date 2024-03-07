@@ -1,7 +1,7 @@
 <div class="dropdown dashboard-option">
     <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
-        @if (auth()->guard('company')->check() && auth()->user()->image_url)
-            <img class="thumb" src="{{ auth()->user()->image_url }}" alt="">
+        @if (auth()->guard('company')->check() && auth()->guard('company')->user()->image_url)
+            <img class="thumb" src="{{ auth()->guard('company')->user()->image_url }}" alt="">
         @else
             <img style="width: 12rem; height: 12rem;" class="object-fit-cover rounded"
                 src="{{ asset(\App\Models\User::PLACEHOLDER_IMAGE_PATH) }}" alt="">
@@ -20,11 +20,8 @@
                 href="{{ route('jobs.index') }}"><i class="la la-briefcase"></i> Manage Jobs </a></li>
         <li><a href="dashboard-applicants.html"><i class="la la-file-invoice"></i> All Applicants</a></li>
         <li><a href="dashboard-resumes.html"><i class="la la-bookmark-o"></i>Shortlisted Resumes</a></li>
-        <li><a href="dashboard-packages.html"><i class="la la-box"></i>Packages</a></li>
-        <li><a href="dashboard-messages.html"><i class="la la-comment-o"></i>Messages</a></li>
-        <li><a href="dashboard-resume-alerts.html"><i class="la la-bell"></i>Resume Alerts</a></li>
-        <li><a href="dashboard-change-password.html"><i class="la la-lock"></i>Change Password</a></li>
-        <li><a href="dashboard-company-profile.html"><i class="la la-user-alt"></i>View Profile</a></li>
+        <li class="{{ request()->routeIs('company.password.change') ? 'active' : '' }}"><a
+                href="{{ route('company.password.change') }}"><i class="la la-lock"></i>Change Password</a></li>
         <li>
             <form method="POST" action="{{ route('company.logout') }}">
                 @csrf
