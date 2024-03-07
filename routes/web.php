@@ -9,7 +9,7 @@ use App\Http\Controllers\Auth\Company\RegisterController as CompanyRegisterContr
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Candidate\ProfileController;
+use App\Http\Controllers\Candidate\ProfileController as CandidateProfileController;
 use App\Http\Controllers\Candidate\ResumeController;
 use App\Http\Controllers\Candidate\Resume\EducationController;
 use App\Http\Controllers\Candidate\Resume\ExperienceController;
@@ -17,6 +17,7 @@ use App\Http\Controllers\Candidate\Resume\SkillController;
 use App\Http\Controllers\Candidate\Resume\TrainingController;
 use App\Http\Controllers\Candidate\UpdatePasswordController;
 use App\Http\Controllers\Company\JobController;
+use App\Http\Controllers\Company\ProfileController as CompanyProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -103,16 +104,16 @@ Route::middleware('auth')->group(function () {
         Route::put('/update-password', [UpdatePasswordController::class, 'update'])
             ->name('password.update');
 
-        Route::get('/candidate/profile', [ProfileController::class, 'index'])
+        Route::get('/candidate/profile', [CandidateProfileController::class, 'index'])
             ->name('candidate.profile');
 
-        Route::post('/candidate/profile', [ProfileController::class, 'store'])
+        Route::post('/candidate/profile', [CandidateProfileController::class, 'store'])
             ->name('candidate.profile.store');
 
-        Route::post('/candidate/social', [ProfileController::class, 'updateSocialAccount'])
+        Route::post('/candidate/social', [CandidateProfileController::class, 'updateSocialAccount'])
             ->name('candidate.social.store');
 
-        Route::post('/candidate/avatar', [ProfileController::class, 'updateAvatar'])
+        Route::post('/candidate/avatar', [CandidateProfileController::class, 'updateAvatar'])
             ->name('candidate.avatar.update');
 
         Route::get('/candidate/resume', [ResumeController::class, 'index'])
@@ -148,6 +149,12 @@ Route::middleware('auth:company')->group(function () {
         Route::get('/company/dashboard', function () {
             return view('company.dashboard');
         })->name('company.dashboard');
+
+        Route::get('/company/profile', [CompanyProfileController::class, 'index'])
+            ->name('company.profile');
+
+        Route::put('/company/profile/{company}', [CompanyProfileController::class, 'update'])
+            ->name('company.profile.update');
 
         Route::resource('/jobs', JobController::class);
     });

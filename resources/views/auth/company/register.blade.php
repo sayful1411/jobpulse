@@ -65,7 +65,7 @@
                                     <div class="form-group">
                                         <label for="website">Website</label>
                                         <input class="@error('website') border border-danger @enderror" id="website"
-                                            type="text" name="website" placeholder="Website">
+                                            type="text" name="website" value="{{ old('website') }}" placeholder="Website">
                                         @error('website')
                                             <div class="mt-1 text-danger">{{ $message }}</div>
                                         @enderror
