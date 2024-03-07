@@ -1,7 +1,7 @@
 <div class="dropdown dashboard-option">
     <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
         @if (auth()->guard('company')->check() && auth()->guard('company')->user()->image_url)
-            <img class="thumb" src="{{ auth()->guard('company')->user()->image_url }}" alt="">
+            <img class="thumb" src="{{ asset(auth()->guard('company')->user()->image_url) }}" alt="">
         @else
             <img style="width: 12rem; height: 12rem;" class="object-fit-cover rounded"
                 src="{{ asset(\App\Models\User::PLACEHOLDER_IMAGE_PATH) }}" alt="">
