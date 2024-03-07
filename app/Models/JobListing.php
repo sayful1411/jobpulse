@@ -27,4 +27,9 @@ class JobListing extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }

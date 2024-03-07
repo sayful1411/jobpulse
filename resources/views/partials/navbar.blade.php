@@ -7,7 +7,9 @@
         </li>
 
         <li class="">
-            <span>Find Jobs</span>
+            <a href="{{ route('all.jobs') }}">
+                <span>Find Jobs</span>
+            </a>
         </li>
 
         <li class="">

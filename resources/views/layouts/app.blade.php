@@ -79,6 +79,8 @@
 
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/chosen.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/jquery.modal.min.js') }}"></script>
     <script src="{{ asset('js/mmenu.polyfills.js') }}"></script>
@@ -89,6 +91,8 @@
     <script src="{{ asset('js/owl.js') }}"></script>
     <script src="{{ asset('js/wow.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
+
+    @stack('script')
 
 </body>
 

@@ -20,6 +20,7 @@ use App\Http\Controllers\Auth\Candidate\LogoutController as CandidateLogoutContr
 use App\Http\Controllers\Auth\Company\RegisterController as CompanyRegisterController;
 use App\Http\Controllers\Auth\Candidate\RegisterController as CandidateRegisterController;
 use App\Http\Controllers\Company\UpdatePasswordController as CompanyUpdatePasswordController;
+use App\Http\Controllers\FindJobController;
 
 Route::get('/', function () {
     return view('index');
@@ -28,6 +29,8 @@ Route::get('/', function () {
 Route::get('/login-popup', function () {
     return view('auth.login-signup-popup');
 })->name('login.popup');
+
+Route::get('/all-jobs', [FindJobController::class, 'index'])->name('all.jobs');
 
 // candidate auth
 Route::group(['prefix' => 'candidate', 'middleware' => 'guest'], function () {
@@ -99,10 +102,10 @@ Route::middleware('auth')->group(function () {
             return view('candidate.dashboard');
         })->name('candidate.dashboard');
 
-        Route::get('/candidate/change-password', [CompanyUpdatePasswordController::class, 'index'])
+        Route::get('/candidate/change-password', [CandidateUpdatePasswordController::class, 'index'])
             ->name('password.change');
 
-        Route::put('/update-password', [CompanyUpdatePasswordController::class, 'update'])
+        Route::put('/update-password', [CandidateUpdatePasswordController::class, 'update'])
             ->name('password.update');
 
         Route::get('/candidate/profile', [CandidateProfileController::class, 'index'])
