@@ -1,11 +1,11 @@
 <div class="dropdown dashboard-option">
     <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
-        {{-- @if (auth()->guard('company')->check() && auth()->user()->image_url)
+        @if (auth()->guard('company')->check() && auth()->user()->image_url)
             <img class="thumb" src="{{ auth()->user()->image_url }}" alt="">
         @else
             <img style="width: 12rem; height: 12rem;" class="object-fit-cover rounded"
                 src="{{ asset(\App\Models\User::PLACEHOLDER_IMAGE_PATH) }}" alt="">
-        @endif --}}
+        @endif
         <span class="name">My Account</span>
     </a>
 

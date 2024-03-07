@@ -34,20 +34,20 @@
 
                                 <div class="uploading-outer">
                                     <div class="uploadButton">
-                                        {{-- <form method="POST" action="{{ route('candidate.avatar.update') }}"
+                                        <form method="POST" action="{{ route('company.avatar.update') }}"
                                             enctype="multipart/form-data">
                                             @csrf
 
                                             <div class="d-flex flex-column form-group mb-3 image-preview">
                                                 <div for="image" class="mb-2">
-                                                    @if ($candidate->image_url)
+                                                    @if ($company->image_url)
                                                         <img style="width: 12rem; height: 12rem;"
                                                             class="object-fit-cover rounded"
-                                                            src="{{ asset($candidate->image_url) }}" alt="">
+                                                            src="{{ asset($company->image_url) }}" alt="">
                                                     @else
                                                         <img style="width: 12rem; height: 12rem;"
                                                             class="object-fit-cover rounded"
-                                                            src="{{ asset(\App\Models\User::PLACEHOLDER_IMAGE_PATH) }}"
+                                                            src="{{ asset(\App\Models\Company::PLACEHOLDER_IMAGE_PATH) }}"
                                                             alt="">
                                                     @endif
                                                 </div>
@@ -60,7 +60,7 @@
                                             <div>
                                                 <button type="submit" class="btn btn btn-primary"> Save </button>
                                             </div>
-                                        </form> --}}
+                                        </form>
                                     </div>
                                     <div class="text">Max file size is 2MB, Minimum dimension: 330x300 And Suitable files
                                         are .jpg &amp; .png</div>

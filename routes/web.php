@@ -156,6 +156,9 @@ Route::middleware('auth:company')->group(function () {
         Route::put('/company/profile/{company}', [CompanyProfileController::class, 'update'])
             ->name('company.profile.update');
 
+        Route::post('/company/avatar', [CompanyProfileController::class, 'updateAvatar'])
+            ->name('company.avatar.update');
+
         Route::resource('/jobs', JobController::class);
     });
 
