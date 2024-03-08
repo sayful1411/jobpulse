@@ -41,6 +41,8 @@ class JobController extends Controller
     {
         $validatedData = $request->validated();
 
+        // dd($validatedData);
+
         $validatedData['company_id'] = auth()->user()->id;
         $validatedData['slug'] = Str::slug($validatedData['title']);
         

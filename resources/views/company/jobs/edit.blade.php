@@ -54,12 +54,33 @@
 
 
                                         <!-- Input -->
-                                        <div class="form-group col-lg-6 col-md-12">
-                                            <label for="salary_range">Salary Range</label>
-                                            <input class="@error('salary_range') border border-danger @enderror"
-                                                type="text" name="salary_range" id="salary_range"
-                                                placeholder="$10000 - $50000" value="{{ old('salary_range', $job->salary_range) }}">
-                                            @error('salary_range')
+                                        <div class="form-group col-lg-4 col-md-12">
+                                            <label for="min_salary">Salary Minimum ($)</label>
+                                            <input class="@error('min_salary') border border-danger @enderror"
+                                                type="text" name="min_salary" id="min_salary"
+                                                placeholder="10000" value="{{ old('min_salary', $job->min_salary) }}">
+                                            @error('min_salary')
+                                                <div class="mt-1 text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <!-- Input -->
+                                        <div class="form-group col-lg-4 col-md-12">
+                                            <label for="max_salary">Salary Maximum ($)</label>
+                                            <input class="@error('max_salary') border border-danger @enderror"
+                                                type="text" name="max_salary" id="max_salary"
+                                                placeholder="50000" value="{{ old('max_salary', $job->max_salary) }}">
+                                            @error('max_salary')
+                                                <div class="mt-1 text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group col-lg-4 col-md-12">
+                                            <label for="vacancy">Vacancy</label>
+                                            <input class="@error('vacancy') border border-danger @enderror" type="text"
+                                                name="vacancy" id="vacancy" value="{{ old('vacancy', $job->vacancy) }}"
+                                                placeholder="5">
+                                            @error('vacancy')
                                                 <div class="mt-1 text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -70,6 +91,16 @@
                                                 name="job_type" id="job_type" value="{{ old('job_type', $job->job_type) }}"
                                                 placeholder="Web Development">
                                             @error('job_type')
+                                                <div class="mt-1 text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label for="experience">Experience</label>
+                                            <input class="@error('experience') border border-danger @enderror" type="text"
+                                                name="experience" id="experience" value="{{ old('experience', $job->experience) }}"
+                                                placeholder="At least 1 year">
+                                            @error('experience')
                                                 <div class="mt-1 text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>

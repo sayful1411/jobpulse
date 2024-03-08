@@ -17,7 +17,10 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->longText('description');
-            $table->string('salary_range');
+            $table->string('min_salary');
+            $table->string('max_salary');
+            $table->string('vacancy')->nullable();
+            $table->string('experience')->nullable();
             $table->date('expiration_date');
             $table->string('job_type');
             $table->string('location');
