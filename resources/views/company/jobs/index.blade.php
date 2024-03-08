@@ -67,7 +67,7 @@
                                                         <div class="option-box">
                                                             <ul class="option-list">
                                                                 <li>
-                                                                    <a href="{{ route('jobs.edit', $job->id) }}">
+                                                                    <a href="{{ route('company.jobs.edit', $job->id) }}">
                                                                         <button data-text="Edit Jobs">
                                                                             <span class="la la-pencil"></span>
                                                                         </button>
@@ -118,7 +118,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "{{ route('jobs.destroy', ':id') }}".replace(':id', jobId),
+                        url: "{{ route('company.jobs.destroy', ':id') }}".replace(':id', jobId),
                         type: 'DELETE',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

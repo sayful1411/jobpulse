@@ -17,7 +17,9 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = JobListing::orderByDesc('created_at')->simplePaginate(10);
+        $authId = auth()->user()->id;
+
+        $jobs = JobListing::where('company_id', $authId)->latest()->simplePaginate(10);
 
         return view('company.jobs.index', compact('jobs'));
     }

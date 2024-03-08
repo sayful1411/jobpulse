@@ -26,7 +26,7 @@
                                     </div>
                                 @endif
 
-                                <form class="default-form" method="POST" action="{{ route('jobs.store') }}">
+                                <form class="default-form" method="POST" action="{{ route('company.jobs.store') }}">
                                     @csrf
                                     <div class="row">
                                         <!-- Input -->

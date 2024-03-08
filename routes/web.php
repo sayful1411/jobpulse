@@ -1,34 +1,30 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Company\JobController;
-use App\Http\Controllers\Candidate\ResumeController;
-use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\EmailVerificationController;
-use App\Http\Controllers\Candidate\Resume\SkillController;
-use App\Http\Controllers\Candidate\UpdatePasswordController as CandidateUpdatePasswordController;
-use App\Http\Controllers\Candidate\Resume\TrainingController;
-use App\Http\Controllers\Candidate\Resume\EducationController;
-use App\Http\Controllers\Candidate\Resume\ExperienceController;
-use App\Http\Controllers\Company\ProfileController as CompanyProfileController;
-use App\Http\Controllers\Auth\Company\LoginController as CompanyLoginController;
-use App\Http\Controllers\Auth\Company\LogoutController as CompanyLogoutController;
-use App\Http\Controllers\Candidate\ProfileController as CandidateProfileController;
 use App\Http\Controllers\Auth\Candidate\LoginController as CandidateLoginController;
 use App\Http\Controllers\Auth\Candidate\LogoutController as CandidateLogoutController;
-use App\Http\Controllers\Auth\Company\RegisterController as CompanyRegisterController;
 use App\Http\Controllers\Auth\Candidate\RegisterController as CandidateRegisterController;
+use App\Http\Controllers\Auth\Company\LoginController as CompanyLoginController;
+use App\Http\Controllers\Auth\Company\LogoutController as CompanyLogoutController;
+use App\Http\Controllers\Auth\Company\RegisterController as CompanyRegisterController;
+use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Candidate\ProfileController as CandidateProfileController;
+use App\Http\Controllers\Candidate\ResumeController;
+use App\Http\Controllers\Candidate\Resume\EducationController;
+use App\Http\Controllers\Candidate\Resume\ExperienceController;
+use App\Http\Controllers\Candidate\Resume\SkillController;
+use App\Http\Controllers\Candidate\Resume\TrainingController;
+use App\Http\Controllers\Candidate\UpdatePasswordController as CandidateUpdatePasswordController;
+use App\Http\Controllers\Company\JobController;
+use App\Http\Controllers\Company\ProfileController as CompanyProfileController;
 use App\Http\Controllers\Company\UpdatePasswordController as CompanyUpdatePasswordController;
 use App\Http\Controllers\FindJobController;
+use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('index');
-})->name('home');
+Route::view('/', 'index')->name('home');
 
-Route::get('/login-popup', function () {
-    return view('auth.login-signup-popup');
-})->name('login.popup');
+Route::view('/login-popup', 'auth.login-signup-popup')->name('login.popup');
 
 Route::get('/all-jobs', [FindJobController::class, 'index'])->name('all.jobs');
 
@@ -98,9 +94,8 @@ Route::middleware(['auth:web,company'])->group(function () {
  */
 Route::middleware('auth')->group(function () {
     Route::middleware(['verified'])->group(function () {
-        Route::get('/candidate/dashboard', function () {
-            return view('candidate.dashboard');
-        })->name('candidate.dashboard');
+
+        Route::view('/candidate/dashboard', 'candidate.dashboard')->name('candidate.dashboard');
 
         Route::get('/candidate/change-password', [CandidateUpdatePasswordController::class, 'index'])
             ->name('password.change');
@@ -145,14 +140,11 @@ Route::middleware('auth')->group(function () {
  */
 Route::middleware('auth:company')->group(function () {
 
-    Route::get('/status', function () {
-        return view('approval');
-    })->name('disapproved');
+    Route::view('/status', 'approval')->name('disapproved');
 
     Route::middleware(['verified', 'approved'])->group(function () {
-        Route::get('/company/dashboard', function () {
-            return view('company.dashboard');
-        })->name('company.dashboard');
+
+        Route::view('/company/dashboard', 'company.dashboard')->name('company.dashboard');
 
         Route::get('/company/profile', [CompanyProfileController::class, 'index'])
             ->name('company.profile');
@@ -166,10 +158,10 @@ Route::middleware('auth:company')->group(function () {
         Route::get('/company/change-password', [CompanyUpdatePasswordController::class, 'index'])
             ->name('company.password.change');
 
-        Route::put('/update-password', [CompanyUpdatePasswordController::class, 'update'])
+        Route::put('/company/update-password', [CompanyUpdatePasswordController::class, 'update'])
             ->name('company.password.update');
 
-        Route::resource('/jobs', JobController::class);
+        Route::resource('/company/jobs', JobController::class)->names('company.jobs');
     });
 
     Route::post('/company/logout', CompanyLogoutController::class)->name('company.logout');
