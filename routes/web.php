@@ -27,6 +27,7 @@ Route::view('/', 'index')->name('home');
 Route::view('/login-popup', 'auth.login-signup-popup')->name('login.popup');
 
 Route::get('/all-jobs', [FindJobController::class, 'index'])->name('all.jobs');
+Route::get('/jobs/{slug}', [FindJobController::class, 'singleJob'])->name('single.job');
 
 // candidate auth
 Route::group(['prefix' => 'candidate', 'middleware' => 'guest'], function () {

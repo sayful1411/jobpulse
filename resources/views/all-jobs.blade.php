@@ -102,18 +102,20 @@
                                         <div class="content">
                                             <span class="company-logo">
                                                 @if ($job->company && $job->company->image_url)
-                                                    <img class="rounded-circle"
-                                                        src="{{ asset($job->company->image_url) }}" alt="Company Image">
+                                                    <img class="rounded-circle" src="{{ asset($job->company->image_url) }}"
+                                                        alt="Company Image">
                                                 @endif
                                             </span>
-                                            <h4><a href="#">{{ $job->title }}</a></h4>
+                                            <h4><a href="{{ route('single.job', $job->slug) }}">{{ $job->title }}</a></h4>
                                             <ul class="job-info">
                                                 <li><span class="icon flaticon-map-locator"></span>{{ $job->location }}
                                                 </li>
                                                 <li><span
                                                         class="icon flaticon-clock-3"></span>{{ $job->created_at->diffForHumans() }}
                                                 </li>
-                                                <li><span class="icon flaticon-money"></span>{{ $job->salary_range }}</li>
+                                                <li><span
+                                                        class="icon flaticon-money"></span>{{ '$' . $job->min_salary . ' - ' . '$' . $job->max_salary }}
+                                                </li>
                                             </ul>
                                             <ul class="job-other-info">
                                                 @foreach ($job->tags as $tag)
