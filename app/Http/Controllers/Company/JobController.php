@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Company;
 
 use App\Models\Job;
+use App\Models\Tag;
 use App\Models\JobListing;
-use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Company\StoreJobRequest;
-use App\Models\Tag;
 
 class JobController extends Controller
 {
@@ -42,6 +42,7 @@ class JobController extends Controller
         $validatedData = $request->validated();
 
         $validatedData['company_id'] = auth()->user()->id;
+        $validatedData['slug'] = Str::slug($validatedData['title']);
         
         DB::transaction(function() use ($validatedData) {
             $job = JobListing::create($validatedData);

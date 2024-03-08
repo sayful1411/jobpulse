@@ -12,6 +12,7 @@ class JobListing extends Model
     protected $fillable = [
         'company_id',
         'title',
+        'slug',
         'description',
         'salary_range',
         'expiration_date',
