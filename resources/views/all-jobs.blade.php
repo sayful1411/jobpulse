@@ -44,21 +44,21 @@
                                 <div class="top-filters">
                                     <div class="form-group">
                                         <select class="chosen-select">
-                                            <option>Job Type</option>
-                                            <option>Web Development</option>
-                                            <option>Web Design</option>
-                                            <option>Full Time</option>
-                                            <option>Internship</option>
-                                            <option>Part Time</option>
-                                            <option>Temporary</option>
+                                            <option>Job Location</option>
+                                            <option>Anywhere</option>
+                                            <option>Bangladesh</option>
+                                            <option>UK</option>
+                                            <option>US</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <select class="chosen-select">
                                             <option>Date Posted</option>
-                                            <option>New Jobs</option>
-                                            <option>Freelance</option>
+                                            <option>Any Time</option>
+                                            <option>Past Month</option>
+                                            <option>Past Week</option>
+                                            <option>Past 24 Hours</option>
                                         </select>
                                     </div>
 
@@ -77,8 +77,7 @@
 
                             <div class="sort-by">
                                 <select class="chosen-select">
-                                    <option>New Jobs</option>
-                                    <option>Freelance</option>
+                                    <option>Job Type</option>
                                     <option>Full Time</option>
                                     <option>Internship</option>
                                     <option>Part Time</option>
@@ -122,28 +121,28 @@
                                                         $class = '';
                                                         switch ($tag->name) {
                                                             case 'Full Time':
-                                                                $class = 'bg-primary text-white';
+                                                                $class = 'full-time';
                                                                 break;
                                                             case 'Part Time':
-                                                                $class = 'time';
+                                                                $class = 'part-time';
                                                                 break;
                                                             case 'On Site':
-                                                                $class = 'bg-success text-white';
+                                                                $class = 'onsite';
                                                                 break;
                                                             case 'Remote':
-                                                                $class = 'bg-warning';
+                                                                $class = 'remote';
                                                                 break;
                                                             case 'Contract':
-                                                                $class = 'privacy';
+                                                                $class = 'contract';
                                                                 break;
                                                             case 'Internship':
-                                                                $class = 'bg-dark text-white';
+                                                                $class = 'internship';
                                                                 break;
                                                             case 'Urgent':
-                                                                $class = 'bg-danger';
+                                                                $class = 'urgent';
                                                                 break;
                                                             default:
-                                                                $class = 'secondary';
+                                                                $class = 'green';
                                                                 break;
                                                         }
                                                     @endphp
@@ -158,15 +157,9 @@
                         </div>
 
                         <!-- Pagination -->
-                        <nav class="ls-pagination">
-                            <ul>
-                                <li class="prev"><a href="#"><i class="fa fa-arrow-left"></i></a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#" class="current-page">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li class="next"><a href="#"><i class="fa fa-arrow-right"></i></a></li>
-                            </ul>
-                        </nav>
+                        <div>
+                            {{ $jobs->links('vendor.pagination.simple-bootstrap-5') }}
+                        </div>
                     </div>
                 </div>
             </div>
