@@ -7,7 +7,7 @@
         <div class="auto-container">
             <!-- Job Search Form -->
             <div class="job-search-form">
-                <form method="post" action="">
+                <form method="get" action="{{ route('all.jobs') }}">
                     <div class="row">
                         <!-- Form Group -->
                         <div class="form-group col-lg-4 col-md-12 col-sm-12">
@@ -18,7 +18,7 @@
                         <!-- Form Group -->
                         <div class="form-group col-lg-4 col-md-12 col-sm-12 location">
                             <span class="icon flaticon-map-locator"></span>
-                            <input type="text" name="field_name" placeholder="City or postcode">
+                            <input type="text" name="location" value="{{ request('location') }}" placeholder="Country or City">
                         </div>
 
                         <!-- Form Group -->
@@ -158,7 +158,7 @@
                             @endforeach
 
                             @if ($jobs->isEmpty())
-                                <h4 class="text-center">No records found.</h4>
+                                <h4 class="text-center">No Jobs found.</h4>
                             @endif
                         </div>
 

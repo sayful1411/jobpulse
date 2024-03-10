@@ -23,6 +23,11 @@ class FindJobController extends Controller
             });
         }
 
+        if ($request->filled('location')) {
+            $location = $request->input('location');
+            $query->where('location', 'like', '%' . $location . '%');
+        }
+
         $jobs = $query->simplePaginate(10);
 
         return view('all-jobs', compact('jobs'));
