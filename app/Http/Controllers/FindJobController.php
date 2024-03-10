@@ -7,9 +7,23 @@ use Illuminate\Http\Request;
 
 class FindJobController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $jobs = JobListing::with('tags', 'company')->latest()->simplePaginate(10);
+        $query = JobListing::with('tags', 'company')->latest();
+
+        if ($request->has('keyword')) {
+            $searchQuery = $request->input('keyword');
+
+            $query->where(function ($query) use ($searchQuery) {
+                $query->where('title', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('job_type', 'like', '%' . $searchQuery . '%')
+                    ->orWhereHas('company', function ($query) use ($searchQuery) {
+                        $query->where('name', 'like', '%' . $searchQuery . '%');
+                    });
+            });
+        }
+
+        $jobs = $query->simplePaginate(10);
 
         return view('all-jobs', compact('jobs'));
     }
@@ -17,7 +31,7 @@ class FindJobController extends Controller
     public function singleJob($slug)
     {
         $job = JobListing::where('slug', $slug)->firstOrFail();
-        
+
         $job->load('tags', 'company');
 
         return view('single-job', compact('job'));

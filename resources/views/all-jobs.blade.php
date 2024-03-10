@@ -12,7 +12,7 @@
                         <!-- Form Group -->
                         <div class="form-group col-lg-4 col-md-12 col-sm-12">
                             <span class="icon flaticon-search-1"></span>
-                            <input type="text" name="field_name" placeholder="Job title, keywords, or company">
+                            <input type="text" name="keyword" value="{{ request('keyword') }}" placeholder="Job title, type, or company">
                         </div>
 
                         <!-- Form Group -->
@@ -156,6 +156,10 @@
                                     </div>
                                 </div>
                             @endforeach
+
+                            @if ($jobs->isEmpty())
+                                <h4 class="text-center">No records found.</h4>
+                            @endif
                         </div>
 
                         <!-- Pagination -->

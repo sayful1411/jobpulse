@@ -20,12 +20,13 @@ use App\Http\Controllers\Company\JobController;
 use App\Http\Controllers\Company\ProfileController as CompanyProfileController;
 use App\Http\Controllers\Company\UpdatePasswordController as CompanyUpdatePasswordController;
 use App\Http\Controllers\FindJobController;
+use App\Http\Controllers\JobSearchController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index')->name('home');
 
 Route::view('/login-popup', 'auth.login-signup-popup')->name('login.popup');
-
+Route::post('/search', [JobSearchController::class, 'search'])->name('job.search');
 Route::get('/all-jobs', [FindJobController::class, 'index'])->name('all.jobs');
 Route::get('/jobs/{slug}', [FindJobController::class, 'singleJob'])->name('single.job');
 
