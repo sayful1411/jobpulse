@@ -22,12 +22,25 @@
             display: none;
         }
 
+        .form-select {
+            border-color: none;
+            padding: 1rem 2.25rem 1rem 0.75rem;
+            color: #1967D2;
+            background-color: rgba(25, 103, 210, 0.07);
+        }
+
+        .form-select:focus{
+            border: none;
+        }
+
         @media only screen and (max-width: 1365px) {
             .sidebar-menu-container {
                 display: block;
             }
         }
     </style>
+
+    @livewireStyles
 
 </head>
 
@@ -93,6 +106,8 @@
     <script src="{{ asset('js/script.js') }}"></script>
 
     @stack('script')
+
+    @livewireScripts
 
 </body>
 

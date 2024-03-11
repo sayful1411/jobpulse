@@ -24,7 +24,7 @@
                                 <li><span class="icon flaticon-clock-3"></span>{{ $job->created_at->diffForHumans() }}
                                 </li>
                                 <li><span
-                                        class="icon flaticon-money"></span>{{ '$' . $job->min_salary . ' - ' . '$' . $job->max_salary }}
+                                        class="icon flaticon-money"></span>{{ '$' . number_format($job->min_salary) . ' - ' . '$' . number_format($job->max_salary) }}
                                 </li>
                             </ul>
                             <ul class="job-other-info">
