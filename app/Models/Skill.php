@@ -11,6 +11,10 @@ class Skill extends Model
 
     protected $fillable = [
         'user_id',
-        'skill',
+        'skills',
+    ];
+
+    protected $casts = [
+        'skills' => 'json',
     ];
 }

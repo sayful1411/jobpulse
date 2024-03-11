@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -23,7 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone',
         'provider_id',
         'avatar',
-        'password'
+        'password',
     ];
 
     /**
@@ -46,6 +48,15 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
+    public const PLACEHOLDER_IMAGE_PATH = 'avatar.png';
+
+    public function getImageUrlAttribute()
+    {
+        return $this->hasMedia('candidate_avatar')
+        ? $this->getFirstMediaUrl('candidate_avatar')
+        : self::PLACEHOLDER_IMAGE_PATH;
+    }
+
     public function profile()
     {
         return $this->hasOne(UserProfile::class);
@@ -54,5 +65,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function othersInformation()
     {
         return $this->hasOne(UserOthersInformation::class);
+    }
+
+    public function socialAccountsInformation()
+    {
+        return $this->hasMany(UserSocialAccount::class);
     }
 }

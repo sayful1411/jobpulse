@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Auth\Candidate;
+namespace App\Http\Requests\Candidate;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class UpdateSocialAccountRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,16 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
+            'social_accounts' => ['nullable', 'array'],
+            'social_accounts.*.title' => ['required', 'string', 'max:50'],
+            'social_accounts.*.url' => ['sometimes', 'url'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'social_accounts.*.url.url' => 'URL required.',
         ];
     }
 }

@@ -1,95 +1,170 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\Candidate\LogoutController;
+use App\Http\Controllers\Auth\Candidate\LoginController as CandidateLoginController;
+use App\Http\Controllers\Auth\Candidate\LogoutController as CandidateLogoutController;
+use App\Http\Controllers\Auth\Candidate\RegisterController as CandidateRegisterController;
+use App\Http\Controllers\Auth\Company\LoginController as CompanyLoginController;
+use App\Http\Controllers\Auth\Company\LogoutController as CompanyLogoutController;
+use App\Http\Controllers\Auth\Company\RegisterController as CompanyRegisterController;
 use App\Http\Controllers\Auth\EmailVerificationController;
-use App\Http\Controllers\Auth\Candidate\ResetPasswordController;
-use App\Http\Controllers\Auth\Candidate\CandidateLoginController;
-use App\Http\Controllers\Auth\Candidate\ForgotPasswordController;
-use App\Http\Controllers\Auth\Candidate\CandidateRegisterController;
-use App\Http\Controllers\Candidate\ProfileController;
-use App\Http\Controllers\Candidate\UpdatePasswordController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Candidate\ProfileController as CandidateProfileController;
+use App\Http\Controllers\Candidate\ResumeController;
+use App\Http\Controllers\Candidate\Resume\EducationController;
+use App\Http\Controllers\Candidate\Resume\ExperienceController;
+use App\Http\Controllers\Candidate\Resume\SkillController;
+use App\Http\Controllers\Candidate\Resume\TrainingController;
+use App\Http\Controllers\Candidate\UpdatePasswordController as CandidateUpdatePasswordController;
+use App\Http\Controllers\Company\JobController;
+use App\Http\Controllers\Company\ProfileController as CompanyProfileController;
+use App\Http\Controllers\Company\UpdatePasswordController as CompanyUpdatePasswordController;
+use App\Http\Controllers\FindJobController;
+use App\Http\Controllers\JobSearchController;
+use Illuminate\Support\Facades\Route;
+
+Route::view('/', 'index')->name('home');
+
+Route::view('/login-popup', 'auth.login-signup-popup')->name('login.popup');
+Route::post('/search', [JobSearchController::class, 'search'])->name('job.search');
+Route::get('/all-jobs', [FindJobController::class, 'index'])->name('all.jobs');
+Route::get('/jobs/{slug}', [FindJobController::class, 'singleJob'])->name('single.job');
+
+// candidate auth
+Route::group(['prefix' => 'candidate', 'middleware' => 'guest'], function () {
+    Route::get('/login', [CandidateLoginController::class, 'index'])
+        ->name('candidate.login');
+
+    Route::post('/login', [CandidateLoginController::class, 'store']);
+
+    Route::get('/register', [CandidateRegisterController::class, 'index'])
+        ->name('candidate.register');
+
+    Route::post('/register', [CandidateRegisterController::class, 'store']);
+
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'candidateSendLinkPage'])
+        ->name('candidate.forgot.password');
+
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'sendLink'])
+        ->defaults('guard', 'users');
+});
+
+// company auth
+Route::group(['prefix' => 'company', 'as' => 'company.', 'middleware' => 'guest:company'], function () {
+    Route::get('/register', [CompanyRegisterController::class, 'index'])
+        ->name('register');
+
+    Route::post('/register', [CompanyRegisterController::class, 'store']);
+
+    Route::get('/login', [CompanyLoginController::class, 'index'])
+        ->name('login');
+
+    Route::post('/login', [CompanyLoginController::class, 'store']);
+
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'companySendLinkPage'])
+        ->name('forgot.password');
+
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'sendLink'])
+        ->defaults('guard', 'companies');
+});
+
+// reset password
+Route::middleware(['guest:web,company'])->group(function () {
+    Route::get('reset-password/{token}/{guard}', [ResetPasswordController::class, 'resetPasswordPage'])
+        ->name('password.reset');
+
+    Route::post('reset-password', [ResetPasswordController::class, 'resetPassword'])
+        ->name('password.store');
+});
+
+// verify
+Route::middleware(['auth:web,company'])->group(function () {
+    Route::get('/email/verify', [EmailVerificationController::class, 'index'])
+        ->name('verification.notice');
+
+    Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verifyEmail'])
+        ->middleware(['signed', 'throttle:6,1'])->name('verification.verify');
+
+    Route::post('/email/verification-notification', [EmailVerificationController::class, 'resendLink'])
+        ->middleware('throttle:6,1')->name('verification.send');
+});
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Candidate Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
  */
-
-Route::get('/', function () {
-    return view('index');
-})->name('home');
-
-Route::get('/login-popup', function () {
-    return view('auth.candidate.login-signup-popup');
-})->name('login.popup');
-
-Route::middleware('guest')->group(function () {
-    Route::get('/candidate/login', [CandidateLoginController::class, 'index'])
-    ->name('candidate.login');
-
-    Route::post('/candidate/login', [CandidateLoginController::class, 'store']);
-
-    Route::get('/candidate/register', [CandidateRegisterController::class, 'index'])
-    ->name('candidate.register');
-
-    Route::post('/candidate/register', [CandidateRegisterController::class, 'store']);
-
-    Route::get('/candidate/forgot-password', [ForgotPasswordController::class, 'index'])
-    ->name('candidate.forgot.password');
-
-    Route::post('/candidate/forgot-password', [ForgotPasswordController::class, 'store']);
-
-    Route::get('reset-password/{token}', [ResetPasswordController::class, 'index'])
-    ->name('password.reset');
-
-    Route::post('reset-password', [ResetPasswordController::class, 'store'])
-    ->name('password.store');
-});
-
 Route::middleware('auth')->group(function () {
-    /*
-    |--------------------------------------------------------------------------
-    | Candidate Routes
-    |--------------------------------------------------------------------------
-    | dashboard
-    | change password
-    | email verification
-    | logout
-    | profile
-    */
     Route::middleware(['verified'])->group(function () {
-        Route::get('/candidate/dashboard', function () {
-            return view('candidate.dashboard');
-        })->name('candidate.dashboard');
 
-        Route::get('/candidate/change-password', [UpdatePasswordController::class, 'index'])
-        ->name('password.change');
+        Route::view('/candidate/dashboard', 'candidate.dashboard')->name('candidate.dashboard');
 
-        Route::put('/update-password', [UpdatePasswordController::class, 'update'])
-        ->name('password.update');
+        Route::get('/candidate/change-password', [CandidateUpdatePasswordController::class, 'index'])
+            ->name('password.change');
 
-        Route::get('/candidate/profile', [ProfileController::class, 'index'])
-        ->name('candidate.profile');
+        Route::put('/update-password', [CandidateUpdatePasswordController::class, 'update'])
+            ->name('password.update');
 
-        Route::post('/candidate/profile', [ProfileController::class, 'store'])
-        ->name('candidate.profile.store');
+        Route::get('/candidate/profile', [CandidateProfileController::class, 'index'])
+            ->name('candidate.profile');
+
+        Route::post('/candidate/profile', [CandidateProfileController::class, 'store'])
+            ->name('candidate.profile.store');
+
+        Route::post('/candidate/social', [CandidateProfileController::class, 'updateSocialAccount'])
+            ->name('candidate.social.store');
+
+        Route::post('/candidate/avatar', [CandidateProfileController::class, 'updateAvatar'])
+            ->name('candidate.avatar.update');
+
+        Route::get('/candidate/resume', [ResumeController::class, 'index'])
+            ->name('candidate.resume');
+
+        Route::post('/candidate/bio', [ResumeController::class, 'store'])
+            ->name('candidate.bio');
+
+        Route::resource('/candidate/resume/education', EducationController::class);
+
+        Route::resource('/candidate/resume/experience', ExperienceController::class);
+
+        Route::resource('/candidate/resume/training', TrainingController::class);
+
+        Route::resource('/candidate/resume/skill', SkillController::class)->except('show', 'edit', 'update');
     });
 
-    Route::get('/email/verify', [EmailVerificationController::class, 'index'])
-    ->name('verification.notice');
-
-    Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verifyEmail'])
-    ->middleware(['signed', 'throttle:6,1'])->name('verification.verify');
-
-    Route::post('/email/verification-notification', [EmailVerificationController::class, 'resendLink'])
-    ->middleware('throttle:6,1')->name('verification.send');
-
-    Route::post('/candidate/logout', LogoutController::class)->name('candidate.logout');
+    Route::post('/candidate/logout', CandidateLogoutController::class)->name('candidate.logout');
 });
 
+/*
+|--------------------------------------------------------------------------
+| Company Routes
+|--------------------------------------------------------------------------
+ */
+Route::middleware('auth:company')->group(function () {
+
+    Route::view('/status', 'approval')->name('disapproved');
+
+    Route::middleware(['verified', 'approved'])->group(function () {
+
+        Route::view('/company/dashboard', 'company.dashboard')->name('company.dashboard');
+
+        Route::get('/company/profile', [CompanyProfileController::class, 'index'])
+            ->name('company.profile');
+
+        Route::put('/company/profile/{company}', [CompanyProfileController::class, 'update'])
+            ->name('company.profile.update');
+
+        Route::post('/company/avatar', [CompanyProfileController::class, 'updateAvatar'])
+            ->name('company.avatar.update');
+
+        Route::get('/company/change-password', [CompanyUpdatePasswordController::class, 'index'])
+            ->name('company.password.change');
+
+        Route::put('/company/update-password', [CompanyUpdatePasswordController::class, 'update'])
+            ->name('company.password.update');
+
+        Route::resource('/company/jobs', JobController::class)->names('company.jobs');
+    });
+
+    Route::post('/company/logout', CompanyLogoutController::class)->name('company.logout');
+});

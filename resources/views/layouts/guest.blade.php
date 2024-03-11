@@ -48,7 +48,7 @@
                             </div>
                         @endguest
 
-                        @auth
+                        @auth('web')
                             <div class="btn-box d-flex align-items-center">
                                 <a href="{{ route('candidate.dashboard') }}"
                                     class="theme-btn -outline-dark-blue -rounded">Dashboard</a>
@@ -59,6 +59,20 @@
                                         this.closest('form').submit();" class="theme-btn -outline-dark-blue -rounded">Logout
                                     </a>
                                 </form>
+                            </div>
+                        @endauth
+
+                        @auth('company')
+                            <div class="btn-box d-flex align-items-center">
+                                <a href="#"
+                                    class="theme-btn -outline-dark-blue -rounded">Dashboard</a>
+                                {{-- <form method="POST" action="{{ route('candidate.logout') }}">
+                                    @csrf
+                                    <a href="{{ route('candidate.logout') }}"
+                                        onclick="event.preventDefault();
+                                        this.closest('form').submit();" class="theme-btn -outline-dark-blue -rounded">Logout
+                                    </a>
+                                </form> --}}
                             </div>
                         @endauth
                     </div>
@@ -91,6 +105,8 @@
     <script src="{{ asset('js/appear.js') }}"></script>
     <script src="{{ asset('js/rellax.min.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
+
+    @stack('scripts')
 
 </body>
 

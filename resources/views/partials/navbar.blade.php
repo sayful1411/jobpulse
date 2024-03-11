@@ -1,13 +1,15 @@
 <nav class="nav main-menu">
     <ul class="navigation" id="navbar">
-        <li class="current">
+        <li class="{{ request()->routeIs('home') ? 'current' : '' }}">
             <a href="{{ route('home') }}">
                 <span>Home</span>
             </a>
         </li>
 
-        <li class="">
-            <span>Find Jobs</span>
+        <li class="{{ request()->routeIs('all.jobs') ? 'current' : '' }}">
+            <a href="{{ route('all.jobs') }}">
+                <span>Find Jobs</span>
+            </a>
         </li>
 
         <li class="">

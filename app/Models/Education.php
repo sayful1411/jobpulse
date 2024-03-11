@@ -9,6 +9,8 @@ class Education extends Model
 {
     use HasFactory;
 
+    protected $table = 'educations';
+
     protected $fillable = [
         'user_id',
         'level',
@@ -18,4 +20,9 @@ class Education extends Model
         'result',
         'passing_year'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -126,6 +126,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'country_state_city_api_key' => env('COUNTRY_STATE_CITY_API_KEY', false),
+
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver

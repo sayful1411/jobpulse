@@ -22,12 +22,25 @@
             display: none;
         }
 
+        .form-select {
+            border-color: none;
+            padding: 1rem 2.25rem 1rem 0.75rem;
+            color: #1967D2;
+            background-color: rgba(25, 103, 210, 0.07);
+        }
+
+        .form-select:focus{
+            border: none;
+        }
+
         @media only screen and (max-width: 1365px) {
             .sidebar-menu-container {
                 display: block;
             }
         }
     </style>
+
+    @livewireStyles
 
 </head>
 
@@ -39,11 +52,24 @@
         <div class="preloader"></div>
 
         <!-- Main Header-->
-        @guest
+        {{-- @guest
             @include('partials.header')
-        @endguest
+        @endguest --}}
 
-        @auth
+        @if (auth()->check() || auth()->guard('company')->check())
+        @else
+            @include('partials.header')
+        @endif
+
+        @auth('web')
+            <div class="sidebar-backdrop"></div>
+            @include('partials.dashboard-header')
+            <div class="sidebar-menu-container">
+                @include('partials.candidate.sidebar-menu')
+            </div>
+        @endauth
+
+        @auth('company')
             <div class="sidebar-backdrop"></div>
             @include('partials.dashboard-header')
             <div class="sidebar-menu-container">
@@ -66,6 +92,8 @@
 
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/chosen.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/jquery.modal.min.js') }}"></script>
     <script src="{{ asset('js/mmenu.polyfills.js') }}"></script>
@@ -76,6 +104,10 @@
     <script src="{{ asset('js/owl.js') }}"></script>
     <script src="{{ asset('js/wow.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
+
+    @stack('script')
+
+    @livewireScripts
 
 </body>
 

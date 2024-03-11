@@ -26,14 +26,41 @@
                                         {{ session('success') }}
                                     </div>
                                 @endif
+                                @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
 
                                 <div class="uploading-outer">
                                     <div class="uploadButton">
-                                        <input class="uploadButton-input" type="file" name="avatar" accept="image/*"
-                                            id="upload">
-                                        <label class="uploadButton-button ripple-effect" for="upload">Browse
-                                            Avatar</label>
-                                        <span class="uploadButton-file-name"></span>
+                                        <form method="POST" action="{{ route('candidate.avatar.update') }}"
+                                            enctype="multipart/form-data">
+                                            @csrf
+
+                                            <div class="d-flex flex-column form-group mb-3 image-preview">
+                                                <div for="image" class="mb-2">
+                                                    @if ($candidate->image_url)
+                                                        <img style="width: 12rem; height: 12rem;"
+                                                            class="object-fit-cover rounded"
+                                                            src="{{ asset($candidate->image_url) }}" alt="">
+                                                    @else
+                                                        <img style="width: 12rem; height: 12rem;"
+                                                            class="object-fit-cover rounded"
+                                                            src="{{ asset(\App\Models\User::PLACEHOLDER_IMAGE_PATH) }}"
+                                                            alt="">
+                                                    @endif
+                                                </div>
+                                                <input class="image-upload-input" type="file" name="avatar"
+                                                    id="avatar" accept="image/*">
+                                                @error('avatar')
+                                                    <div class="mt-1 text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div>
+                                                <button type="submit" class="btn btn btn-primary"> Save </button>
+                                            </div>
+                                        </form>
                                     </div>
                                     <div class="text">Max file size is 2MB, Minimum dimension: 330x300 And Suitable files
                                         are .jpg &amp; .png</div>
@@ -51,7 +78,8 @@
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="nid">NID</label>
                                             <input class="@error('nid') border border-danger @enderror" type="number"
-                                                id="nid" name="nid" value="{{ old('nid', $candidate->profile->nid ?? '') }}">
+                                                id="nid" name="nid"
+                                                value="{{ old('nid', $candidate->profile->nid ?? '') }}">
                                             @error('nid')
                                                 <div class="mt-1 text-danger">{{ $message }}</div>
                                             @enderror
@@ -60,7 +88,8 @@
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="phone">Phone</label>
                                             <input class="@error('phone') border border-danger @enderror" type="text"
-                                                id="phone" name="phone" value="{{ old('phone', $candidate->phone) }}">
+                                                id="phone" name="phone"
+                                                value="{{ old('phone', $candidate->phone) }}">
                                             @error('phone')
                                                 <div class="mt-1 text-danger">{{ $message }}</div>
                                             @enderror
@@ -125,7 +154,8 @@
                                             <label for="blood_group">Blood Group</label>
                                             <input class="@error('blood_group') border border-danger @enderror"
                                                 type="text" id="blood_group" name="blood_group"
-                                                value="{{ old('blood_group', $candidate->profile->blood_group ?? '') }}" placeholder="A+">
+                                                value="{{ old('blood_group', $candidate->profile->blood_group ?? '') }}"
+                                                placeholder="A+">
                                             @error('blood_group')
                                                 <div class="mt-1 text-danger">{{ $message }}</div>
                                             @enderror
@@ -196,30 +226,65 @@
                             </div>
 
                             <div class="widget-content">
-                                <form class="default-form">
+                                <form method="POST" action="{{ route('candidate.social.store') }}"
+                                    class="default-form">
+                                    @csrf
+
                                     <div class="row">
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>Facebook</label>
-                                            <input type="text" name="facebook">
+                                            <input type="hidden" name="social_accounts[facebook][title]"
+                                                value="Facebook" class="d-none">
+                                            <input
+                                                class="@error('social_accounts.facebook.url') border border-danger @enderror"
+                                                type="url" name="social_accounts[facebook][url]"
+                                                value="{{ old('social_accounts.facebook.url', $candidate->socialAccountsInformation[0]['url'] ?? '') }}">
+                                            @error('social_accounts.facebook.url')
+                                                <div class="mt-1 text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>Twitter</label>
-                                            <input type="text" name="twitter">
+                                            <input type="hidden" name="social_accounts[twitter][title]" value="Twitter"
+                                                class="d-none">
+                                            <input
+                                                class="@error('social_accounts.twitter.url') border border-danger @enderror"
+                                                type="url" name="social_accounts[twitter][url]"
+                                                value="{{ old('social_accounts.twitter.url', $candidate->socialAccountsInformation[1]['url'] ?? '') }}">
+                                            @error('social_accounts.twitter.url')
+                                                <div class="mt-1 text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>Linkedin</label>
-                                            <input type="text" name="linkedin">
+                                            <input type="hidden" name="social_accounts[linkedin][title]"
+                                                value="LinkedIn" class="d-none">
+                                            <input
+                                                class="@error('social_accounts.linkedin.url') border border-danger @enderror"
+                                                type="url" name="social_accounts[linkedin][url]"
+                                                value="{{ old('social_accounts.linkedin.url', $candidate->socialAccountsInformation[2]['url'] ?? '') }}">
+                                            @error('social_accounts.linkedin.url')
+                                                <div class="mt-1 text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label>Google Plus</label>
-                                            <input type="text" name="google_plus">
+                                            <input type="hidden" name="social_accounts[google_plus][title]"
+                                                value="Google Plus" class="d-none">
+                                            <input
+                                                class="@error('social_accounts.google_plus.url') border border-danger @enderror"
+                                                type="url" name="social_accounts[google_plus][url]"
+                                                value="{{ old('social_accounts.google_plus.url', $candidate->socialAccountsInformation[3]['url'] ?? '') }}">
+                                            @error('social_accounts.google_plus.url')
+                                                <div class="mt-1 text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-lg-6 col-md-12">
-                                            <button class="theme-btn btn-style-one">Save</button>
+                                            <button type="submit" class="theme-btn btn-style-one">Save</button>
                                         </div>
                                     </div>
                                 </form>
@@ -241,5 +306,18 @@
     <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
     <script>
         $('.datepicker').datepicker();
+
+        $('.image-upload-input').change(function() {
+            const file = this.files[0];
+            const previewer = $(this).closest('.image-preview').find('img');
+
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function(event) {
+                    previewer.attr('src', event.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
     </script>
 @endpush

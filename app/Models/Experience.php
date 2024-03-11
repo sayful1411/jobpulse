@@ -19,4 +19,9 @@ class Experience extends Model
         'company_address',
         'responsibilities'
     ];
+
+    protected $casts = [
+        'join' => 'datetime',
+        'resign' => 'datetime',
+    ];
 }
