@@ -1,8 +1,7 @@
 <div class="dropdown dashboard-option">
     <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
         @if (Auth::check() && auth()->user()->image_url)
-            <img class="thumb"
-                src="{{ asset( auth()->user()->image_url ) }}" alt="">
+            <img class="thumb" src="{{ asset(auth()->user()->image_url) }}" alt="">
         @else
             <img style="width: 12rem; height: 12rem;" class="object-fit-cover rounded"
                 src="{{ asset(\App\Models\User::PLACEHOLDER_IMAGE_PATH) }}" alt="">
@@ -16,7 +15,8 @@
                 href="{{ route('candidate.profile') }}"><i class="la la-user-tie"></i>My Profile</a></li>
         <li class="{{ request()->routeIs('candidate.resume') ? 'active' : '' }}"><a
                 href="{{ route('candidate.resume') }}"><i class="la la-file-invoice"></i>My Resume</a></li>
-        <li><a href="candidate-dashboard-applied-job.html"><i class="la la-briefcase"></i> Applied Jobs </a></li>
+        <li class="{{ request()->routeIs('candidate.applied-jobs') ? 'active' : '' }}"><a
+                href="{{ route('candidate.applied-jobs') }}"><i class="la la-briefcase"></i> Applied Jobs </a></li>
         <li><a href="candidate-dashboard-job-alerts.html"><i class="la la-bell"></i>Job Alerts</a></li>
         <li><a href="dashboard-packages.html"><i class="la la-box"></i>Plugin</a></li>
         <li class="{{ request()->routeIs('password.change') ? 'active' : '' }}"><a
