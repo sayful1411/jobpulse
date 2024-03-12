@@ -13,10 +13,14 @@ class ApplyJob extends Pivot
 
     protected $fillable = [
         'user_id', 
-        'job_id', 
+        'job_listing_id', 
         'name', 
         'experience', 
         'expected_salary'
+    ];
+
+    protected $casts = [
+        'expiration_date' => 'datetime',
     ];
 
     public function user()
@@ -26,6 +30,6 @@ class ApplyJob extends Pivot
 
     public function job()
     {
-        return $this->belongsTo(JobListing::class);
+        return $this->belongsTo(JobListing::class, 'job_listing_id');
     }
 }

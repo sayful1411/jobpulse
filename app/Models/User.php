@@ -84,7 +84,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 
     public function jobs()
     {
-        return $this->belongsToMany(JobListing::class, 'apply_jobs')
+        return $this->belongsToMany(JobListing::class, 'apply_jobs', 'user_id', 'job_listing_id')
             ->using(ApplyJob::class)
             ->withPivot('name', 'experience', 'expected_salary')
             ->withTimestamps();

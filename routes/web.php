@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\Company\RegisterController as CompanyRegisterContr
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Candidate\AppliedJobController;
 use App\Http\Controllers\Candidate\ProfileController as CandidateProfileController;
 use App\Http\Controllers\Candidate\ResumeController;
 use App\Http\Controllers\Candidate\Resume\EducationController;
@@ -133,6 +134,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('/candidate/resume/training', TrainingController::class);
 
         Route::resource('/candidate/resume/skill', SkillController::class)->except('show', 'edit', 'update');
+
+        Route::get('/candidate/applied-jobs', [AppliedJobController::class, 'index'])->name('candidate.applied-jobs');
     });
 
     Route::post('/candidate/logout', CandidateLogoutController::class)->name('candidate.logout');
