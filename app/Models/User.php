@@ -62,6 +62,16 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         return $this->hasOne(UserProfile::class);
     }
 
+    public function education()
+    {
+        return $this->hasOne(Education::class);
+    }
+
+    public function skill()
+    {
+        return $this->hasOne(Skill::class);
+    }
+
     public function othersInformation()
     {
         return $this->hasOne(UserOthersInformation::class);
@@ -70,5 +80,13 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     public function socialAccountsInformation()
     {
         return $this->hasMany(UserSocialAccount::class);
+    }
+
+    public function jobs()
+    {
+        return $this->belongsToMany(JobListing::class, 'apply_jobs')
+            ->using(ApplyJob::class)
+            ->withPivot('name', 'experience', 'expected_salary')
+            ->withTimestamps();
     }
 }

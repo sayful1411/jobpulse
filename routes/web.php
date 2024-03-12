@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplyJobController;
 use App\Http\Controllers\Auth\Candidate\LoginController as CandidateLoginController;
 use App\Http\Controllers\Auth\Candidate\LogoutController as CandidateLogoutController;
 use App\Http\Controllers\Auth\Candidate\RegisterController as CandidateRegisterController;
@@ -29,6 +30,8 @@ Route::view('/login-popup', 'auth.login-signup-popup')->name('login.popup');
 Route::post('/search', [JobSearchController::class, 'search'])->name('job.search');
 Route::get('/all-jobs', [FindJobController::class, 'index'])->name('all.jobs');
 Route::get('/jobs/{slug}', [FindJobController::class, 'singleJob'])->name('single.job');
+Route::get('/apply-job/{slug}', [ApplyJobController::class, 'index'])->name('apply.job');
+Route::post('/apply-job/{job}', [ApplyJobController::class, 'store'])->name('store.applied.job');
 
 // candidate auth
 Route::group(['prefix' => 'candidate', 'middleware' => 'guest'], function () {

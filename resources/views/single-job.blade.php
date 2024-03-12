@@ -64,7 +64,7 @@
                         </div>
 
                         <div class="btn-box">
-                            <a href="#" class="theme-btn btn-style-one">Apply For Job</a>
+                            <a href="{{ route('apply.job', $job->slug) }}" class="theme-btn btn-style-one">Apply For Job</a>
                             <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button>
                         </div>
                     </div>
@@ -253,7 +253,6 @@
 
         // get country
         $.ajax(fetchCountry).done(function(response) {
-            // $('#location').append(document.createTextNode(response.name));
             var countryName = response.name;
             var fetchCity = {
                 "url": "https://api.countrystatecity.in/v1/countries/" + storedCountry + "/cities",
@@ -280,29 +279,5 @@
                 }
             });
         });
-
-        // var fetchCity = {
-        //     "url": "https://api.countrystatecity.in/v1/countries/" + storedCountry + "/cities",
-        //     "method": "GET",
-        //     "headers": {
-        //         "X-CSCAPI-KEY": apiKey
-        //     },
-        // };
-
-        // // get city
-        // $.ajax(fetchCity).done(function(response) {
-        //     var cityName = null;
-
-        //     response.forEach(function(city) {
-        //         if (city.id == storedCityId) {
-        //             cityName = city.name;
-        //             return false;
-        //         }
-        //     });
-
-        //     if (cityName) {
-        //         $('#location').append(document.createTextNode(cityName));
-        //     }
-        // });
     </script>
 @endpush

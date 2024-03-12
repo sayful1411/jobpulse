@@ -36,4 +36,12 @@ class JobListing extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function candidates()
+    {
+        return $this->belongsToMany(User::class)
+            ->using(ApplyJob::class)
+            ->withPivot('name', 'experience', 'expected_salary')
+            ->withTimestamps();
+    }
 }
