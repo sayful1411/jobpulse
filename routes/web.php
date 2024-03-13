@@ -18,6 +18,7 @@ use App\Http\Controllers\Candidate\Resume\ExperienceController;
 use App\Http\Controllers\Candidate\Resume\SkillController;
 use App\Http\Controllers\Candidate\Resume\TrainingController;
 use App\Http\Controllers\Candidate\UpdatePasswordController as CandidateUpdatePasswordController;
+use App\Http\Controllers\Company\ApplicantController;
 use App\Http\Controllers\Company\JobController;
 use App\Http\Controllers\Company\ProfileController as CompanyProfileController;
 use App\Http\Controllers\Company\UpdatePasswordController as CompanyUpdatePasswordController;
@@ -170,6 +171,9 @@ Route::middleware('auth:company')->group(function () {
             ->name('company.password.update');
 
         Route::resource('/company/jobs', JobController::class)->names('company.jobs');
+
+        Route::get('/company/applicants', [ApplicantController::class, 'index'])->name('applicants.all');
+        Route::get('/company/applicants/{job}', [ApplicantController::class, 'show'])->name('applicants.show');
     });
 
     Route::post('/company/logout', CompanyLogoutController::class)->name('company.logout');
