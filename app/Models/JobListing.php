@@ -39,7 +39,7 @@ class JobListing extends Model
 
     public function candidates()
     {
-        return $this->belongsToMany(User::class)
+        return $this->belongsToMany(User::class, 'apply_jobs', 'job_listing_id', 'user_id')
             ->using(ApplyJob::class)
             ->withPivot('name', 'experience', 'expected_salary')
             ->withTimestamps();
