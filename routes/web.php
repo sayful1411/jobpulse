@@ -23,6 +23,7 @@ use App\Http\Controllers\Company\JobController;
 use App\Http\Controllers\Company\ProfileController as CompanyProfileController;
 use App\Http\Controllers\Company\UpdatePasswordController as CompanyUpdatePasswordController;
 use App\Http\Controllers\FindJobController;
+use App\Http\Controllers\Company\JobApplicationController;
 use App\Http\Controllers\JobSearchController;
 use Illuminate\Support\Facades\Route;
 
@@ -174,6 +175,12 @@ Route::middleware('auth:company')->group(function () {
 
         Route::get('/company/applicants', [ApplicantController::class, 'index'])->name('applicants.all');
         Route::get('/company/applicants/{job}', [ApplicantController::class, 'show'])->name('applicants.show');
+
+        Route::post('/company/applications/{applicant}/{job}/approve', [JobApplicationController::class, 'approve'])
+            ->name('applications.approve');
+        Route::post('/company/applications/{applicant}/{job}/reject', [JobApplicationController::class, 'reject'])
+            ->name('applications.reject');
+
     });
 
     Route::post('/company/logout', CompanyLogoutController::class)->name('company.logout');

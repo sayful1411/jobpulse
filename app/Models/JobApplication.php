@@ -10,6 +10,12 @@ class JobApplication extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'job_listing_id',
+        'status'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -19,8 +25,4 @@ class JobApplication extends Model
     {
         return $this->belongsTo(JobListing::class);
     }
-
-    protected $casts = [
-        'status' => JobApplicationStatus::class,
-    ];
 }

@@ -58,7 +58,10 @@
                                             <div class="row">
                                                 <!-- Candidate block three -->
                                                 @foreach ($job->candidates as $candidate)
-                                                    <div class="candidate-block-three col-lg-6 col-md-12 col-sm-12">
+                                                
+                                                    <div
+                                                        class="candidate-block-three col-lg-6 col-md-12 col-sm-12 relative">
+                                                        <p class="application-status pending">Pending</p>
                                                         <div class="inner-box">
                                                             <div class="content">
                                                                 @if ($candidate->image_url)
@@ -93,15 +96,30 @@
                                                             </div>
                                                             <div class="option-box">
                                                                 <ul class="option-list">
-                                                                    <li><button data-text="View Aplication"><span
-                                                                                class="la la-eye"></span></button></li>
-                                                                    <li><button data-text="Approve Aplication"><span
-                                                                                class="la la-check"></span></button></li>
-                                                                    <li><button data-text="Reject Aplication"><span
-                                                                                class="la la-times-circle"></span></button>
+                                                                    <li>
+                                                                        <button data-text="View Aplication">
+                                                                            <span class="la la-eye"></span>
+                                                                        </button>
                                                                     </li>
-                                                                    <li><button data-text="Delete Aplication"><span
-                                                                                class="la la-trash"></span></button></li>
+                                                                    <li>
+                                                                        <form method="POST"
+                                                                            action="{{ route('applications.approve', [$candidate->id, $job->id]) }}">
+                                                                            @csrf
+                                                                            <button data-text="Approve Aplication">
+                                                                                <span class="la la-check"></span>
+                                                                            </button>
+                                                                        </form>
+                                                                    </li>
+                                                                    <li>
+                                                                        <form method="POST"
+                                                                            action="{{ route('applications.reject', [$candidate->id, $job->id]) }}">
+                                                                            @csrf
+                                                                            <button type="submit"
+                                                                                data-text="Reject Aplication">
+                                                                                <span class="la la-times-circle"></span>
+                                                                            </button>
+                                                                        </form>
+                                                                    </li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -119,3 +137,18 @@
         </div>
     </section>
 @endsection
+
+@push('css')
+    <style>
+        .application-status.pending {
+            position: absolute !important;
+            top: 5px;
+            right: 20px;
+            z-index: 9;
+            padding: 5px 20px;
+            border-radius: 50px;
+            background: rgba(249, 171, 0, 0.15) !important;
+            color: #f9ab00 !important;
+        }
+    </style>
+@endpush
