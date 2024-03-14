@@ -53,7 +53,7 @@
                                                             {{ $job->location }}
                                                         </span>
                                                     </td>
-                                                    <td class="applied"><a href="#">3+ Applied</a></td>
+                                                    <td class="applied"><a href="{{ route('applicants.show', $job->id) }}">{{ $job->candidates->count() }} Applied</a></td>
                                                     <td>{{ $job->created_at->format('M d, Y') }}<br>{{ $job->expiration_date->format('M d, Y') }}
                                                     </td>
                                                     <td>

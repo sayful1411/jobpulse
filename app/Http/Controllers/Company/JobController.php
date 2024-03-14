@@ -19,7 +19,7 @@ class JobController extends Controller
     {
         $authId = auth()->user()->id;
 
-        $jobs = JobListing::where('company_id', $authId)->latest()->simplePaginate(10);
+        $jobs = JobListing::with('candidates')->where('company_id', $authId)->latest()->simplePaginate(10);
 
         return view('company.jobs.index', compact('jobs'));
     }
