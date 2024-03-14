@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\JobApplicationStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -43,5 +44,20 @@ class JobListing extends Model
             ->using(ApplyJob::class)
             ->withPivot('name', 'experience', 'expected_salary')
             ->withTimestamps();
+    }
+
+    public function jobApplications()
+    {
+        return $this->hasMany(JobApplication::class, 'job_listing_id');
+    }
+
+    public function approvedApplicationsCount(): int
+    {
+        return $this->jobApplications()->where('status', JobApplicationStatus::APPROVED)->count();
+    }
+
+    public function rejectedApplicationsCount(): int
+    {
+        return $this->jobApplications()->where('status', JobApplicationStatus::REJECTED)->count();
     }
 }

@@ -50,8 +50,11 @@
                                             <ul class="aplicantion-status tab-buttons clearfix">
                                                 <li class="tab-btn active-btn totals" data-tab="#totals">Total(s):
                                                     {{ $job->candidates->count() }}</li>
-                                                <li class="tab-btn approved" data-tab="#approved">Approved: </li>
-                                                <li class="tab-btn rejected" data-tab="#rejected">Rejected(s): </li>
+                                                <li class="tab-btn approved" data-tab="#approved">Approved:
+                                                    {{ $job->approvedApplicationsCount() }}</li>
+                                                <li class="tab-btn rejected" data-tab="#rejected">Rejected(s):
+                                                    {{ $job->rejectedApplicationsCount() }}
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
