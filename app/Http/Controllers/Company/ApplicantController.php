@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Company;
 
+use App\Enums\JobApplicationStatus;
 use App\Http\Controllers\Controller;
+use App\Models\ApplyJob;
 use App\Models\JobListing;
-use Illuminate\Http\Request;
 
 class ApplicantController extends Controller
 {
@@ -19,10 +20,32 @@ class ApplicantController extends Controller
         return view('company.applicants.index', compact('jobs'));
     }
 
-    public function show(JobListing $job)
+    public function show($jobId)
     {
-        $job->load('candidates.profile', 'candidates.skill');  
+        $job = JobListing::findOrFail($jobId);
 
-        return view('company.applicants.show', compact('job'));
+        $applicants = ApplyJob::where('job_listing_id', $jobId)
+            ->whereNot('status', JobApplicationStatus::APPROVED)
+            ->with('candidate', 'candidate.profile', 'candidate.skill')
+            ->get();
+
+        // dd($applicants);
+
+        // $job->load([
+        //     'candidates.profile',
+        //     'candidates.skill',
+        //     'appliedJobs',
+        //     'candidates.jobApplications' => function ($query) {
+        //         $query->whereNot('status', JobApplicationStatus::APPROVED);
+        //     }
+        // ]);
+
+        // $job = JobApplication::where('job_listing_id', $job->id)
+        //     ->whereNot('status', JobApplicationStatus::APPROVED)
+        //     ->with('candidate', 'candidate.profile', 'candidate.skill', 'applyJob')->get();
+
+        // dd($job);
+
+        return view('company.applicants.show', compact('applicants', 'job'));
     }
 }

@@ -10,10 +10,13 @@
                     href="{{ route('company.jobs.create') }}"><i class="la la-paper-plane"></i>Post a New Job</a></li>
             <li
                 class="{{ request()->routeIs('company.jobs.*') && !request()->routeIs('company.jobs.create') ? 'active' : '' }}">
-                <a href="{{ route('company.jobs.index') }}"><i class="la la-briefcase"></i> Manage Jobs </a></li>
+                <a href="{{ route('company.jobs.index') }}"><i class="la la-briefcase"></i> Manage Jobs </a>
+            </li>
             <li class="{{ request()->routeIs('applicants.*') ? 'active' : '' }}"><a
                     href="{{ route('applicants.all') }}"><i class="la la-file-invoice"></i> All Applicants</a></li>
-            <li><a href="dashboard-resumes.html"><i class="la la-bookmark-o"></i>Shortlisted Resumes</a></li>
+            <li class="{{ request()->routeIs('applications.*') ? 'active' : '' }}"><a
+                    href="{{ route('applications.all-shortlists') }}"><i class="la la-bookmark-o"></i>Shortlisted
+                    Resumes</a></li>
             <li class="{{ request()->routeIs('company.password.change') ? 'active' : '' }}"><a
                     href="{{ route('company.password.change') }}"><i class="la la-lock"></i>Change Password</a></li>
             <li>

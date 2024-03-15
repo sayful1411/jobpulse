@@ -174,12 +174,20 @@ Route::middleware('auth:company')->group(function () {
         Route::resource('/company/jobs', JobController::class)->names('company.jobs');
 
         Route::get('/company/applicants', [ApplicantController::class, 'index'])->name('applicants.all');
+
         Route::get('/company/applicants/{job}', [ApplicantController::class, 'show'])->name('applicants.show');
 
         Route::post('/company/applications/{applicant}/{job}/approve', [JobApplicationController::class, 'approve'])
             ->name('applications.approve');
+
         Route::post('/company/applications/{applicant}/{job}/reject', [JobApplicationController::class, 'reject'])
             ->name('applications.reject');
+
+        Route::get('/company/shortlisted/applicants', [JobApplicationController::class, 'allShortLists'])
+            ->name('applications.all-shortlists');
+
+        Route::get('/company/shortlisted/applicants/{job}', [JobApplicationController::class, 'shortLists'])
+            ->name('applications.shortlists');
 
     });
 

@@ -12,17 +12,21 @@ class JobApplication extends Model
 
     protected $fillable = [
         'user_id',
-        'job_listing_id',
-        'status'
+        'job_listing_id'
     ];
 
-    public function user()
+    public function candidate()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function job()
     {
-        return $this->belongsTo(JobListing::class);
+        return $this->belongsTo(JobListing::class, 'job_listing_id');
+    }
+
+    public function applyJob()
+    {
+        return $this->belongsTo(ApplyJob::class, 'job_listing_id', 'job_listing_id');
     }
 }

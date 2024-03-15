@@ -16,16 +16,17 @@ class ApplyJob extends Pivot
         'job_listing_id', 
         'name', 
         'experience', 
-        'expected_salary'
+        'expected_salary',
+        'status'
     ];
 
     protected $casts = [
         'expiration_date' => 'datetime',
     ];
 
-    public function user()
+    public function candidate()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function job()
