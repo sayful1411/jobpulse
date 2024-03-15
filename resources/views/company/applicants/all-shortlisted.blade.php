@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
-@section('title', 'All Applicants | ' . config('app.name'))
+@section('title', 'Shorlisted Resumes | ' . config('app.name'))
 
 @section('content')
     <section class="user-dashboard">
         <div class="dashboard-outer">
             <div class="upper-title-box">
-                <h3>All Aplicants</h3>
+                <h3>Shorlisted Resumes!</h3>
                 <div class="text">Ready to jump back in?</div>
             </div>
 
@@ -16,7 +16,7 @@
                     <div class="ls-widget">
                         <div class="tabs-box">
                             <div class="widget-title">
-                                <h4>Applicants by each Job</h4>
+                                <h4>Shorlisted Resumes by each Job</h4>
 
                                 <div class="chosen-outer">
                                     <!--Tabs Box-->
@@ -44,15 +44,18 @@
                                 @foreach ($jobs as $job)
                                     <div class="tabs-box">
                                         <div class="aplicants-upper-bar">
-                                            <a href="{{ route('applicants.show', $job->id) }}">
+                                            <a href="{{ route('applications.shortlists', $job->id) }}">
                                                 <h6>{{ $job->title }}</h6>
                                             </a>
                                             <ul class="aplicantion-status tab-buttons clearfix">
-                                                <li class="tab-btn active-btn totals" data-tab="#totals">Total(s):
+                                                <li class="totals">Total(s):
                                                     {{ $job->candidates->count() }}</li>
-                                                <li class="tab-btn approved" data-tab="#approved">Approved:
-                                                    {{ $job->approvedApplicationsCount() }}</li>
-                                                <li class="tab-btn rejected" data-tab="#rejected">Rejected(s):
+                                                <a href="{{ route('applications.shortlists', $job->id) }}">
+                                                    <li class="approved">Approved:
+                                                        {{ $job->approvedApplicationsCount() }}
+                                                    </li>
+                                                </a>
+                                                <li class="rejected">Rejected(s):
                                                     {{ $job->rejectedApplicationsCount() }}
                                                 </li>
                                             </ul>

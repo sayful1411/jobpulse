@@ -2,26 +2,17 @@
 
 namespace App\Models;
 
+use App\Enums\JobApplicationStatus;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class ApplyJob extends Pivot
+class JobApplication extends Model
 {
     use HasFactory;
 
-    protected $table = 'apply_jobs';
-
     protected $fillable = [
-        'user_id', 
-        'job_listing_id', 
-        'name', 
-        'experience', 
-        'expected_salary',
-        'status'
-    ];
-
-    protected $casts = [
-        'expiration_date' => 'datetime',
+        'user_id',
+        'job_listing_id'
     ];
 
     public function candidate()
@@ -32,5 +23,10 @@ class ApplyJob extends Pivot
     public function job()
     {
         return $this->belongsTo(JobListing::class, 'job_listing_id');
+    }
+
+    public function applyJob()
+    {
+        return $this->belongsTo(ApplyJob::class, 'job_listing_id', 'job_listing_id');
     }
 }
