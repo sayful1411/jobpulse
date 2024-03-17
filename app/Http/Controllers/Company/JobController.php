@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Company;
 
-use App\Models\Job;
-use App\Models\Tag;
-use App\Models\JobListing;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Company\StoreJobRequest;
+use App\Models\JobListing;
+use App\Models\Tag;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class JobController extends Controller
 {
@@ -19,7 +18,10 @@ class JobController extends Controller
     {
         $authId = auth()->user()->id;
 
-        $jobs = JobListing::with('candidates')->where('company_id', $authId)->latest()->simplePaginate(10);
+        $jobs = JobListing::with('candidates')
+            ->where('company_id', $authId)
+            ->latest()
+            ->simplePaginate(5);
 
         return view('company.jobs.index', compact('jobs'));
     }
@@ -30,7 +32,7 @@ class JobController extends Controller
     public function create()
     {
         $tags = Tag::all();
-        
+
         return view('company.jobs.create', compact('tags'));
     }
 
@@ -45,8 +47,8 @@ class JobController extends Controller
 
         $validatedData['company_id'] = auth()->user()->id;
         $validatedData['slug'] = Str::slug($validatedData['title']);
-        
-        DB::transaction(function() use ($validatedData) {
+
+        DB::transaction(function () use ($validatedData) {
             $job = JobListing::create($validatedData);
 
             $job->tags()->attach($validatedData['tags']);
@@ -81,8 +83,8 @@ class JobController extends Controller
         $validatedData = $request->validated();
 
         $validatedData['company_id'] = auth()->user()->id;
-        
-        DB::transaction(function() use ($job, $validatedData) {
+
+        DB::transaction(function () use ($job, $validatedData) {
             $job->update($validatedData);
             $job->tags()->detach();
             $job->tags()->attach($validatedData['tags']);

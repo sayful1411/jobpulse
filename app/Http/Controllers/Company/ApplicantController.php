@@ -13,7 +13,10 @@ class ApplicantController extends Controller
     {
         $companyId = auth()->user()->id;
 
-        $jobs = JobListing::with('candidates', 'candidates.jobApplications')->where('company_id', $companyId)->latest()->paginate(2);
+        $jobs = JobListing::with('candidates', 'candidates.jobApplications')
+            ->where('company_id', $companyId)
+            ->latest()
+            ->simplePaginate(5);
 
         // dd($jobs);
 

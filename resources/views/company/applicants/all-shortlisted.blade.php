@@ -62,7 +62,10 @@
                                         </div>
                                     </div>
                                 @endforeach
-
+                                <!-- Pagination -->
+                                <div>
+                                    {{ $jobs->links('vendor.pagination.simple-bootstrap-5') }}
+                                </div>
                             </div>
                         </div>
                     </div>

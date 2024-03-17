@@ -2,27 +2,27 @@
 
 namespace App\Http\Controllers\Company;
 
-use App\Models\JobListing;
-use App\Models\JobApplication;
-use Illuminate\Support\Facades\DB;
 use App\Enums\JobApplicationStatus;
 use App\Http\Controllers\Controller;
 use App\Models\ApplyJob;
+use App\Models\JobApplication;
+use App\Models\JobListing;
+use Illuminate\Support\Facades\DB;
 
 class JobApplicationController extends Controller
 {
     public function approve($candidateId, $jobListingId)
     {
         // Approve the application
-        DB::transaction(function() use ($candidateId, $jobListingId) {
+        DB::transaction(function () use ($candidateId, $jobListingId) {
             JobApplication::updateOrCreate(
                 ['user_id' => $candidateId, 'job_listing_id' => $jobListingId],
                 ['user_id' => $candidateId, 'job_listing_id' => $jobListingId]
             );
 
             ApplyJob::where('user_id', $candidateId)
-            ->where('job_listing_id', $jobListingId)
-            ->update(['status' => JobApplicationStatus::APPROVED]);
+                ->where('job_listing_id', $jobListingId)
+                ->update(['status' => JobApplicationStatus::APPROVED]);
         });
 
         flash()->addSuccess('Application approved successfully.');
@@ -33,15 +33,15 @@ class JobApplicationController extends Controller
     public function reject($candidateId, $jobListingId)
     {
         // Reject the application
-        DB::transaction(function() use ($candidateId, $jobListingId) {
+        DB::transaction(function () use ($candidateId, $jobListingId) {
             JobApplication::updateOrCreate(
                 ['user_id' => $candidateId, 'job_listing_id' => $jobListingId],
                 ['user_id' => $candidateId, 'job_listing_id' => $jobListingId]
             );
 
             ApplyJob::where('user_id', $candidateId)
-            ->where('job_listing_id', $jobListingId)
-            ->update(['status' => JobApplicationStatus::REJECTED]);
+                ->where('job_listing_id', $jobListingId)
+                ->update(['status' => JobApplicationStatus::REJECTED]);
         });
 
         flash()->addSuccess('Application rejected successfully.');
@@ -53,7 +53,10 @@ class JobApplicationController extends Controller
     {
         $companyId = auth()->user()->id;
 
-        $jobs = JobListing::with('candidates', 'candidates.jobApplications')->where('company_id', $companyId)->latest()->paginate(2);
+        $jobs = JobListing::with('candidates', 'candidates.jobApplications')
+            ->where('company_id', $companyId)
+            ->latest()
+            ->simplePaginate(5);
 
         return view('company.applicants.all-shortlisted', compact('jobs'));
     }
