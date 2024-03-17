@@ -34,13 +34,13 @@ class ApplyJobController extends Controller
             return redirect()->route('candidate.login');
         }
 
-        $candidate->load('profile', 'education', 'skill');
+        $candidate->load('profile', 'educations', 'skill');
 
         if ($candidate->profile == null) {
             return redirect()->route('candidate.profile')->with('error', 'Please fill out profile details');
         }
 
-        if ($candidate->profile->bio == null || $candidate->education == null || $candidate->skill == null) {
+        if ($candidate->profile->bio == null || $candidate->educations == null || $candidate->skill == null) {
             return redirect()->route('candidate.resume')->with('error', 'Before applying for a job, please fill out the bio, education, and skills information');
         }
         

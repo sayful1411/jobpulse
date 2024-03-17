@@ -67,7 +67,8 @@
                                                     <div
                                                         class="candidate-block-three col-lg-6 col-md-12 col-sm-12 relative">
                                                         {{-- <p class="application-status pending">Pending</p> --}}
-                                                        <p class="application-status {{ $applicant->status == 'rejected' ? 'rejected' : 'pending' }}">
+                                                        <p
+                                                            class="application-status {{ $applicant->status == 'rejected' ? 'rejected' : 'pending' }}">
                                                             {{ $applicant->status == 'rejected' ? 'Rejected' : 'Pending' }}
                                                         </p>
                                                         <div class="inner-box">
@@ -105,9 +106,11 @@
                                                             <div class="option-box">
                                                                 <ul class="option-list">
                                                                     <li>
-                                                                        <button data-text="View Aplication">
-                                                                            <span class="la la-eye"></span>
-                                                                        </button>
+                                                                        <a href="{{ route('applications.view', $applicant->candidate->id) }}">
+                                                                            <button data-text="View Aplication">
+                                                                                <span class="la la-eye"></span>
+                                                                            </button>
+                                                                        </a>
                                                                     </li>
                                                                     <li>
                                                                         <form method="POST"

@@ -177,6 +177,9 @@ Route::middleware('auth:company')->group(function () {
 
         Route::get('/company/applicants/{job}', [ApplicantController::class, 'show'])->name('applicants.show');
 
+        Route::get('/company/applications/{applicant}/view', [JobApplicationController::class, 'viewApplicant'])
+            ->name('applications.view');
+
         Route::post('/company/applications/{applicant}/{job}/approve', [JobApplicationController::class, 'approve'])
             ->name('applications.approve');
 

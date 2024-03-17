@@ -53,7 +53,9 @@
                                                             {{ $job->location }}
                                                         </span>
                                                     </td>
-                                                    <td class="applied"><a href="{{ route('applicants.show', $job->id) }}">{{ $job->candidates->count() }} Applied</a></td>
+                                                    <td class="applied"><a
+                                                            href="{{ route('applicants.show', $job->id) }}">{{ $job->candidates->count() }}
+                                                            Applied</a></td>
                                                     <td>{{ $job->created_at->format('M d, Y') }}<br>{{ $job->expiration_date->format('M d, Y') }}
                                                     </td>
                                                     <td>
@@ -85,11 +87,12 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                            <tr>
-                                                <td>{{ $jobs->links() }}</td>
-                                            </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                                <!-- Pagination -->
+                                <div>
+                                    {{ $jobs->links('vendor.pagination.simple-bootstrap-5') }}
                                 </div>
                             </div>
                         </div>
