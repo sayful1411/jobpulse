@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ApplyJob;
 use App\Models\JobApplication;
 use App\Models\JobListing;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class JobApplicationController extends Controller
@@ -70,5 +71,16 @@ class JobApplicationController extends Controller
         // dd($approvedApplicants);
 
         return view('company.applicants.shortlisted', compact('approvedApplicants', 'job'));
+    }
+
+    public function viewApplicant($candidateId)
+    {
+        $candidate = User::where('id', $candidateId)->firstOrFail();
+
+        $candidate->load('profile', 'educations', 'experiences', 'skill', 'othersInformation', 'socialAccountsInformation');
+
+        // dd($candidate);
+
+        return view('company.applicants.profile', compact('candidate'));
     }
 }

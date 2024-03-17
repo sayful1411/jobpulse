@@ -79,7 +79,7 @@
                                                                     </figure>
                                                                 @endif
                                                                 <h4 class="name"><a
-                                                                        href="#">{{ $applicant->candidate->name }}</a>
+                                                                        href="{{ route('applications.view', $applicant->candidate->id) }}">{{ $applicant->candidate->name }}</a>
                                                                 </h4>
                                                                 <ul class="candidate-info">
                                                                     <li>
