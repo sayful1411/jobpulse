@@ -13,7 +13,7 @@
                 href="{{ route('candidate.dashboard') }}"> <i class="la la-home"></i> Dashboard</a></li>
         <li class="{{ request()->routeIs('candidate.profile') ? 'active' : '' }}"><a
                 href="{{ route('candidate.profile') }}"><i class="la la-user-tie"></i>My Profile</a></li>
-        <li class="{{ request()->routeIs('candidate.resume') ? 'active' : '' }}"><a
+        <li class="{{ request()->routeIs('candidate.resume') || request()->routeIs('candidate.resume.*') ? 'active' : '' }}"><a
                 href="{{ route('candidate.resume') }}"><i class="la la-file-invoice"></i>My Resume</a></li>
         <li class="{{ request()->routeIs('candidate.applied-jobs') ? 'active' : '' }}"><a
                 href="{{ route('candidate.applied-jobs') }}"><i class="la la-briefcase"></i> Applied Jobs </a></li>

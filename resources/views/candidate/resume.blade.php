@@ -52,7 +52,7 @@
                                         <div class="resume-outer">
                                             <div class="upper-title">
                                                 <h4>Education</h4>
-                                                <a href="{{ route('education.create') }}">
+                                                <a href="{{ route('candidate.resume.education.create') }}">
                                                     <button class="add-info-btn"><span class="icon flaticon-plus"></span>
                                                         Add Aducation</button>
                                                 </a>
@@ -75,12 +75,12 @@
                                                                         {{ $education->passing_year }}</span>
                                                                     <div class="edit-btns">
                                                                         <a
-                                                                            href="{{ route('education.edit', $education->id) }}">
+                                                                            href="{{ route('candidate.resume.education.edit', $education->id) }}">
                                                                             <button><span
                                                                                     class="la la-pencil"></span></button>
                                                                         </a>
                                                                         <form method="POST"
-                                                                            action="{{ route('education.destroy', $education->id) }}">
+                                                                            action="{{ route('candidate.resume.education.destroy', $education->id) }}">
                                                                             @csrf
                                                                             @method('DELETE')
 
@@ -110,7 +110,7 @@
                                         <div class="resume-outer theme-blue">
                                             <div class="upper-title">
                                                 <h4>Work &amp; Experience</h4>
-                                                <a href="{{ route('experience.create') }}">
+                                                <a href="{{ route('candidate.resume.experience.create') }}">
                                                     <button class="add-info-btn"><span class="icon flaticon-plus"></span>
                                                         Add Work</button></a>
                                             </div>
@@ -136,12 +136,12 @@
                                                                     </span>
                                                                     <div class="edit-btns">
                                                                         <a
-                                                                            href="{{ route('experience.edit', $experience->id) }}">
+                                                                            href="{{ route('candidate.resume.experience.edit', $experience->id) }}">
                                                                             <button><span
                                                                                     class="la la-pencil"></span></button>
                                                                         </a>
                                                                         <form method="POST"
-                                                                            action="{{ route('experience.destroy', $experience->id) }}">
+                                                                            action="{{ route('candidate.resume.experience.destroy', $experience->id) }}">
                                                                             @csrf
                                                                             @method('DELETE')
 
@@ -169,7 +169,7 @@
                                         <div class="resume-outer theme-yellow">
                                             <div class="upper-title">
                                                 <h4>Training</h4>
-                                                <a href="{{ route('training.create') }}">
+                                                <a href="{{ route('candidate.resume.training.create') }}">
                                                     <button class="add-info-btn"><span class="icon flaticon-plus"></span>
                                                         Training</button></a>
                                             </div>
@@ -191,12 +191,12 @@
                                                                         class="year">{{ $training->completion_year }}</span>
                                                                     <div class="edit-btns">
                                                                         <a
-                                                                            href="{{ route('training.edit', $training->id) }}">
+                                                                            href="{{ route('candidate.resume.training.edit', $training->id) }}">
                                                                             <button><span
                                                                                     class="la la-pencil"></span></button>
                                                                         </a>
                                                                         <form method="POST"
-                                                                            action="{{ route('training.destroy', $training->id) }}">
+                                                                            action="{{ route('candidate.resume.training.destroy', $training->id) }}">
                                                                             @csrf
                                                                             @method('DELETE')
 
@@ -224,7 +224,7 @@
                                         <div class="resume-outer theme-yellow">
                                             <div class="upper-title">
                                                 <h4>Skills</h4>
-                                                <a href="{{ route('skill.create') }}">
+                                                <a href="{{ route('candidate.resume.skill.create') }}">
                                                     <button class="add-info-btn"><span class="icon flaticon-plus"></span>
                                                         Skills</button></a>
                                             </div>
@@ -240,7 +240,7 @@
                                                                         <span class="year">{{ $skill }}</span>
                                                                         <div class="edit-btns">
                                                                             <form
-                                                                                action="{{ route('skill.destroy', $skill) }}"
+                                                                                action="{{ route('candidate.resume.skill.destroy', $skill) }}"
                                                                                 method="post">
                                                                                 @csrf
                                                                                 @method('DELETE')

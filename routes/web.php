@@ -130,13 +130,17 @@ Route::middleware('auth')->group(function () {
         Route::post('/candidate/bio', [ResumeController::class, 'store'])
             ->name('candidate.bio');
 
-        Route::resource('/candidate/resume/education', EducationController::class);
+        Route::resource('/candidate/resume/education', EducationController::class)
+            ->names('candidate.resume.education');
 
-        Route::resource('/candidate/resume/experience', ExperienceController::class);
+        Route::resource('/candidate/resume/experience', ExperienceController::class)
+            ->names('candidate.resume.experience');
 
-        Route::resource('/candidate/resume/training', TrainingController::class);
+        Route::resource('/candidate/resume/training', TrainingController::class)
+            ->names('candidate.resume.training');
 
         Route::resource('/candidate/resume/skill', SkillController::class)
+            ->names('candidate.resume.skill')
             ->except('show', 'edit', 'update');
 
         Route::get('/candidate/applied-jobs', [AppliedJobController::class, 'index'])
