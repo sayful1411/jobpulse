@@ -114,7 +114,15 @@
                                 <li class="{{ $class }}">{{ $tag->name }}</li>
                             @endforeach
                         </ul>
-                        <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+
+                        @if ($job->isSavedByUser())
+                            <button class="bookmark-btn"><span class="la la-check"></span></button>
+                        @else
+                            <a href="{{ route('save-job', $job->slug) }}">
+                                <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+                            </a>
+                        @endif
+
                     </div>
                 </div>
             </div>

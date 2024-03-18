@@ -17,13 +17,14 @@ use App\Http\Controllers\Candidate\Resume\EducationController;
 use App\Http\Controllers\Candidate\Resume\ExperienceController;
 use App\Http\Controllers\Candidate\Resume\SkillController;
 use App\Http\Controllers\Candidate\Resume\TrainingController;
+use App\Http\Controllers\Candidate\SaveJobController;
 use App\Http\Controllers\Candidate\UpdatePasswordController as CandidateUpdatePasswordController;
 use App\Http\Controllers\Company\ApplicantController;
+use App\Http\Controllers\Company\JobApplicationController;
 use App\Http\Controllers\Company\JobController;
 use App\Http\Controllers\Company\ProfileController as CompanyProfileController;
 use App\Http\Controllers\Company\UpdatePasswordController as CompanyUpdatePasswordController;
 use App\Http\Controllers\FindJobController;
-use App\Http\Controllers\Company\JobApplicationController;
 use App\Http\Controllers\JobSearchController;
 use Illuminate\Support\Facades\Route;
 
@@ -129,15 +130,27 @@ Route::middleware('auth')->group(function () {
         Route::post('/candidate/bio', [ResumeController::class, 'store'])
             ->name('candidate.bio');
 
-        Route::resource('/candidate/resume/education', EducationController::class);
+        Route::resource('/candidate/resume/education', EducationController::class)
+            ->names('candidate.resume.education');
 
-        Route::resource('/candidate/resume/experience', ExperienceController::class);
+        Route::resource('/candidate/resume/experience', ExperienceController::class)
+            ->names('candidate.resume.experience');
 
-        Route::resource('/candidate/resume/training', TrainingController::class);
+        Route::resource('/candidate/resume/training', TrainingController::class)
+            ->names('candidate.resume.training');
 
-        Route::resource('/candidate/resume/skill', SkillController::class)->except('show', 'edit', 'update');
+        Route::resource('/candidate/resume/skill', SkillController::class)
+            ->names('candidate.resume.skill')
+            ->except('show', 'edit', 'update');
 
-        Route::get('/candidate/applied-jobs', [AppliedJobController::class, 'index'])->name('candidate.applied-jobs');
+        Route::get('/candidate/applied-jobs', [AppliedJobController::class, 'index'])
+            ->name('candidate.applied-jobs');
+
+        Route::get('/job/{slug}/save', [SaveJobController::class, 'saveJob'])
+            ->name('save-job');
+
+        Route::get('/candidate/saved/jobs', [SaveJobController::class, 'showSavedJobs'])
+            ->name('saved.job');
     });
 
     Route::post('/candidate/logout', CandidateLogoutController::class)->name('candidate.logout');

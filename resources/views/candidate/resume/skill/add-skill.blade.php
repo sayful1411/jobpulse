@@ -21,7 +21,7 @@
                                     </div>
                                 @endif
 
-                                <form method="POST" action="{{ route('skill.store') }}" class="default-form">
+                                <form method="POST" action="{{ route('candidate.resume.skill.store') }}" class="default-form">
                                     @csrf
 
                                     <div class="row">
