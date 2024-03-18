@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use App\Enums\JobApplicationStatus;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class JobListing extends Model
 {
@@ -64,5 +65,14 @@ class JobListing extends Model
     public function appliedJobs()
     {
         return $this->hasMany(ApplyJob::class, 'job_listing_id');
+    }
+
+    public function isSavedByUser()
+    {
+        $user = Auth::user();
+        if ($user) {
+            return $user->savedJobs->pluck('id')->contains($this->id);
+        }
+        return false;
     }
 }

@@ -33,7 +33,7 @@
                                                         @endif
                                                     </span>
                                                     <h4>
-                                                        <a href="#">
+                                                        <a href="{{ route('single.job', $appliedJob->job->slug) }}">
                                                             {{ $appliedJob->job->title }}
                                                         </a>
                                                     </h4>

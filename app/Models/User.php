@@ -104,4 +104,9 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     {
         return $this->hasMany(ApplyJob::class, 'user_id');
     }
+
+    public function savedJobs()
+    {
+        return $this->belongsToMany(JobListing::class, 'saved_job_user', 'user_id', 'job_listing_id');
+    }
 }

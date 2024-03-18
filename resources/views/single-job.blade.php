@@ -65,7 +65,14 @@
 
                         <div class="btn-box">
                             <a href="{{ route('apply.job', $job->slug) }}" class="theme-btn btn-style-one">Apply For Job</a>
-                            <button class="bookmark-btn"><i class="flaticon-bookmark"></i></button>
+
+                            @if ($job->isSavedByUser())
+                                <button class="bookmark-btn"><span class="la la-check"></span></button>
+                            @else
+                                <a href="{{ route('save-job', $job->slug) }}">
+                                    <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>

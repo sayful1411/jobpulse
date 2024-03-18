@@ -17,8 +17,9 @@
                 href="{{ route('candidate.resume') }}"><i class="la la-file-invoice"></i>My Resume</a></li>
         <li class="{{ request()->routeIs('candidate.applied-jobs') ? 'active' : '' }}"><a
                 href="{{ route('candidate.applied-jobs') }}"><i class="la la-briefcase"></i> Applied Jobs </a></li>
-        <li><a href="candidate-dashboard-job-alerts.html"><i class="la la-bell"></i>Job Alerts</a></li>
-        <li><a href="dashboard-packages.html"><i class="la la-box"></i>Plugin</a></li>
+        <li><a href="#"><i class="la la-bell"></i>Job Alerts</a></li>
+        <li class="{{ request()->routeIs('saved.job') ? 'active' : '' }}"><a href="{{ route('saved.job') }}"><i
+                    class="la la-bookmark"></i>Saved Jobs</a></li>
         <li class="{{ request()->routeIs('password.change') ? 'active' : '' }}"><a
                 href="{{ route('password.change') }}"><i class="la la-lock"></i>Change Password</a></li>
 
